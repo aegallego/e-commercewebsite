@@ -35,14 +35,69 @@ if(isset($_GET['delete'])){
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Placed Orders</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
    <link rel="stylesheet" href="../css/admin_style.css">
+
+
 <style>
+   .btn-primary {
+      background-color: #142d55;
+      border-radius: 10px;
+   }
     .btn-delete {
-   background-color: red;
+      border-radius: 10px;
+   background-color: #960e0e;
    color: white;
+}
+.search-form form {
+   display: flex;
+   gap: 1rem;
+   justify-content: flex-start;
+   align-items: center;
+   margin-left: 70px;
+}
+.search-form form input {
+   width: 40%; 
+   border: var(--border);
+   border-radius: .5rem;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   padding: 1rem; 
+   font-size: 1.6rem; 
+   color: var(--black);
+}
+.search-form form button {
+   font-size: 2rem; 
+   height: 4.5rem; 
+   line-height: 4.5rem; 
+   background-color: var(--main-color);
+   cursor: pointer;
+   color: var(--white);
+   border-radius: .5rem;
+   width: 5rem; 
+   text-align: center;
+}
+.search-form form button:hover {
+   background-color: var(--black);
+}
+      .dataTables_wrapper .dataTables_filter {
+   display: none;
+}
+#ordersTable tr:nth-child(even) {
+    background-color: #B7E3FF !important;
+}
+#ordersTable tr:nth-child(odd) {
+    background-color: #57e3ff!important;
+    ;
+}
+#ordersTable tr:nth-child(1) {
+    background-color: #57e3ff!important;
+    ;
 }
 </style>
 </head>
@@ -52,8 +107,16 @@ if(isset($_GET['delete'])){
 
 <section class="orders">
    <h1 class="heading">Placed Orders</h1>
+   
+   <div class="search-form">
+   <form>
+      <input type="text" id="datatableSearch" placeholder="Search...">
+      <button type="button" id="datatableSearchButton"><i class="fas fa-search"></i></button>
+   </form>
+</div>
+
    <div class="container">
-      <table id="ordersTable" class ="table2">
+      <table id="ordersTable">
          <thead>
             <tr>
                <th>Placed On</th>
@@ -79,7 +142,7 @@ if(isset($_GET['delete'])){
                      echo '<td>' . $fetch_orders['number'] . '</td>';
                      echo '<td>' . $fetch_orders['address'] . '</td>';
                      echo '<td>' . $fetch_orders['total_products'] . '</td>';
-                     echo '<td>P' . $fetch_orders['total_price'] . ' </td>';
+                     echo '<td>$' . $fetch_orders['total_price'] . '/-</td>';
                      echo '<td>' . $fetch_orders['method'] . '</td>';
                      echo '<td>' . $fetch_orders['payment_status'] . '</td>';
                      echo '<td>
@@ -142,6 +205,11 @@ $(document).ready(function() {
       dom: 'Bfrtip',
       searching: true,
       scrollX: true
+   });
+
+   $('#datatableSearchButton').on('click', function() {
+      var searchValue = $('#datatableSearch').val();
+      table.search(searchValue).draw();
    });
 
        // Add ng filter dropdown sa header
