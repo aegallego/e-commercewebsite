@@ -1,0 +1,557 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+:root{
+   --main-color:#142d55;
+   --black:#444;
+   --lightblue:#4b92ff;
+   --aquamarine:#57e3ff;
+   --blue: #0856cf;
+   --white:#fff;
+   --light-color:#B7E3FF;
+   --light-bg:#f5f5f5;
+   --orange:#f39c12;
+   --red: #ff6969;
+   /* --border:.2rem solid var(--black); */
+   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+   --modal-duration: 1s;
+   --modal-color: #428bca;
+}
+
+*{
+   font-family: 'Poppins', sans-serif;
+   margin:0; padding:0;
+   box-sizing: border-box;
+   outline: none; border:none;
+   text-decoration: none;
+}
+
+*::selection{
+   background-color: var(--main-color);
+   color:var(--white);
+}
+
+::-webkit-scrollbar{
+   height: .5rem;
+   width: 1rem;
+}
+
+::-webkit-scrollbar-track{
+   background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+   background-color: var(--main-color);
+}
+
+html{
+   font-size: 62.5%;
+   overflow-x: hidden;
+}
+
+body{
+   background-color: var(--light-color);
+   height: 100vh;
+}
+section{
+    padding:2rem;
+    max-width: 100%;
+    margin:0 auto;
+    border-radius: 2rem;
+ }
+.order-status .purchase{
+  color: var(--main-color);
+  font-size: 3.5em;
+  font-weight: 700;
+}
+.order-status h3 {
+    display: flex;
+    font-weight: bold;
+    justify-content: left;
+    width: 100%;
+}
+.order-status a.history{
+    display: flex;
+    align-items: end;
+    color: var(--lightblue);
+    font-size: 2rem;
+    font-family: 'Poppins';
+    justify-content: right;
+    width: 100%;
+   }
+.order-status .status .names{
+    font-size: 2em;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins';
+    justify-content: space-between;
+    width: 100%;
+    color: var(--light-bg);
+    margin-top: 5%;
+}
+a.history:hover{
+    color: var(--main-color);
+}
+.order-status{
+    padding:2rem;
+    max-width: 100%;
+    margin:0;
+    border-radius: 2rem;
+ }
+ 
+.header{
+    position: sticky;
+    top:0; left:0; right:0;
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+ }
+ 
+ .header .flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+ }
+ 
+ .header .flex .logo{
+    font-size: 2.5rem;
+    color:var(--black);
+ }
+ 
+ .header .flex .logo span{
+    color:var(--main-color);
+ }
+ 
+ .header .flex .navbar a{
+    margin:0 1rem;
+    font-size: 2rem;
+    color:var(--main-color);
+ }
+ 
+ .header .flex .navbar a:hover{
+    color:var(--main-color);
+    text-decoration: none;
+ }
+ 
+ 
+ .header .flex .icons > *{
+    margin-left: 1rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color:var(--main-color);
+ }
+ 
+ .header .flex .icons > *:hover{
+    color:var(--lightblue);
+ }
+ 
+ .header .flex .icons a span{
+    font-size: 2rem;
+ }
+ 
+ .header .flex .profile{
+    position: absolute;
+    top:120%; right:2rem;
+    background-color: var(--white);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    border:var(--border);
+    padding:2rem;
+    width: 30rem;
+    padding-top: 1.2rem;
+    display: none;
+    animation:fadeIn .2s linear;
+ }
+ 
+ .header .flex .profile.active{
+    display: inline-block;
+ }
+ 
+ .header .flex .profile p{
+    text-align: center;
+    color:var(--black);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+ }
+ #menu-btn{
+    display: none;
+ }
+
+ .order-status .container{
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 2rem;
+ }
+
+ .order-status .status{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: #142D55;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width:100%;
+    height: 30vh;
+ }
+
+ .order-status .status .icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+ }
+
+ .order-status .status .icons button{
+    background: transparent;
+    padding: 2rem;
+}
+ .order-status .status i {
+    font-size:70px;
+    color:var(--light-bg);
+ }
+
+ .container .index{
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+ }
+
+ .index h3 {
+   justify-content: center;
+   display: flex;
+   font-weight: bold;
+   width: 100%;
+}
+
+.index .purchase{
+   color: var(--main-color);
+   font-size: 3.5em;
+   font-weight: 700;
+ }
+
+ .index a.history{
+   display: flex;
+   flex-direction: row;
+   color: var(--lightblue);
+   font-size: 2rem;
+   font-family: 'Poppins';
+   justify-content: center;
+  }
+
+ .index .status{
+   display:flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   border-radius: 20px;
+   height: 30vh;
+}
+
+.index .status button{
+   background: var(--white);
+   padding: 5rem;
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   border-radius: 20px;
+   margin: 3rem;
+}
+
+ .index .status i {
+   font-size:70px;
+   color:var(--main-color);
+ }
+
+ .index .status .names{
+   font-size: 2em;
+   display: flex;
+   flex-direction: row;
+   font-family: 'Poppins';
+   justify-content: center;
+   width: 100%;
+   color: var(--main-color);
+   margin-top: 5%;
+
+}
+
+.empty{
+   padding:1.5rem;
+   background-color: var(--white);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   color:var(--red);
+   border-radius: .5rem;
+   font-size: 2rem;
+   text-transform: capitalize;
+}
+
+ .order-status .receipts {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 30%);
+   gap:1.5rem;
+   align-items: center;
+   justify-content: center;
+   margin:1.5rem;
+   display: none;
+ } 
+
+ .order-status .receipts .actualreceipts {
+   padding:1rem 2rem;
+   flex:1 1 40rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+} 
+
+.order-status .receipts .overflow{
+   height:500px; 
+   overflow: auto; 
+   overflow-x: hidden;
+   overflow-y: none;
+}
+
+.order-status .receipts .overflow::-webkit-scrollbar-thumb{
+   background-color: var(--main-color);
+   border-radius: 0 .5rem .5rem 0;
+}
+
+.order-status .receipts .overflow::-webkit-scrollbar-track{
+   background-color: var(--light-bg);
+   border-radius: 0 .5rem .5rem 0;
+
+}
+
+.order-status .receipts .actualreceipts p{
+   margin:.5rem 0;
+   line-height: 1.8;
+   font-size: 2rem;
+   color:var(--lightblue);
+   text-transform: capitalize;
+   width: 15rem;
+   justify-content: center;
+}
+
+.receipts .actualreceipts span{
+   color:var(--black);
+   text-transform: none;
+   font-size: 2rem;
+   justify-content: center;
+}
+
+#top .logo{
+    width: 50%;
+    height: 100px;
+    background: url(../images/GEMSTAR-LOGO.png) no-repeat;
+    background-size: 200px;
+    margin: 5px 0 10px 0;
+    justify-content: center;
+   }
+
+h2{font-size: 1.5rem;}
+
+#top .info{
+   margin-bottom: 1.5rem;
+}
+
+td{
+   padding: 0 1rem;
+   justify-content: center;
+}
+
+.prices{
+   color:var(--black);
+   border-radius: .5rem;
+   text-transform: uppercase;
+}
+.pricing{
+   display: inline-block;
+   padding:0 2rem;
+   margin:.5rem 2rem;
+   font-size: 2rem;
+   text-align: center;
+   background-color: var(--white);
+}
+
+ .footer{
+    background-color: var(--light-bg);
+    /* padding-bottom: 7rem; */
+ }
+ 
+ .footer .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+    gap:1.5rem;
+    align-items: flex-start;
+ }
+ 
+ .footer .grid .box h3{
+    font-size: 2rem;
+    color:var(--main-color);
+    margin-bottom: 2rem;
+    text-transform: capitalize;
+ }
+ 
+ .footer .grid .box a{
+    display: block;
+    margin:1.5rem 0;
+    font-size: 1.7rem;
+    color:var(--lightblue);
+ }
+ 
+ .footer .grid .box a i{
+    padding-right: 1rem;
+    color:var(--main-color);
+    transition: .2s linear;
+ }
+ 
+ .footer .grid .box a:hover{
+    color:var(--main-color);
+ }
+ 
+ .footer .grid .box a:hover i{
+    padding-right: 2rem;
+ }
+ 
+ .footer .credit{
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: var(--border);
+    font-size: 2rem;
+    color:var(--light-bg);
+    background-color: #142D55;
+ }
+ 
+ .footer .credit span{
+    color:var(--light-bg);
+ }
+
+ .heading{
+   font-size: 4rem;
+   color:var(--main-color);
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+section{
+   padding:2rem;
+   max-width: 100%;
+   margin:0 auto;
+   border-radius: 2rem;
+}
+
+.heading{
+   font-size: 4rem;
+   color:var(--main-color);
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+.btn,
+.btns,
+.delete-btn,
+.option-btn{
+   display: block;
+   width: 100%;
+   margin-top: 1.2rem;
+   border-radius: .5rem;
+   padding:1rem 3rem;
+   font-size: 1.4rem;
+   color:var(--white);
+   cursor: pointer;
+   text-align: center;
+}
+
+.btn:hover,
+.delete-btn:hover,
+.option-btn:hover{
+   background-color: var(--black);
+}
+
+.btns:hover{
+   background-color: var(--main-color);
+   color: var(--white)
+
+}
+
+.btn{
+   background-color: var(--lightblue);
+}
+
+.btns{
+   background-color: var(--lightblue);
+   color: var(--white);  
+}
+
+.option-btn{
+   background-color: var(--orange);
+}
+
+.delete-btn{
+   background-color: var(--red);
+}
+
+.flex-btn{
+   display: flex;
+   gap:1rem;
+}
+
+
+ 
+
+ @media (max-width:768px){
+
+    #menu-btn{
+       display: inline-block;
+    }
+ 
+    .header .flex .navbar{
+       position: absolute;
+       top:99%; left:0; right:0;
+       border-top: var(--border);
+       border-bottom: var(--border);
+       background-color: var(--white);
+       transition: .2s linear;
+       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+ 
+    .header .flex .navbar.active{
+       clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+ 
+    .header .flex .navbar a{
+       display: block;
+       margin:2rem;
+    }
+ 
+    .status{
+       width: 100%;
+    }
+ 
+ }
+ 
+ @media (max-width:450px){
+ 
+    html{
+       font-size: 50%;
+    }
+ 
+    .heading{
+       font-size: 3rem;
+    }
+ 
+    .flex-btn{
+       flex-flow: column;
+       gap:0;
+    }
+ 
+    .status{
+        width: 100%;
+     }
+  
+ }
