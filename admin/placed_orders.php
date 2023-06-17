@@ -16,6 +16,29 @@ if(isset($_POST['update_payment'])){
    $payment_status = filter_var($payment_status, FILTER_SANITIZE_STRING);
    $update_payment = $conn->prepare("UPDATE `orders` SET payment_status = ? WHERE id = ?");
    $update_payment->execute([$payment_status, $order_id]);
+
+   $order_id = $_POST['order_id'];
+   $courier_type = $_POST['courier_type'];
+   $courier_type = filter_var($courier_type, FILTER_SANITIZE_STRING);
+   if($courier_type == ''){
+      $update_payment = $conn->prepare("UPDATE `orders` SET courier_type = ? WHERE id = ?");
+      $update_payment->execute([$courier_type = "-", $order_id]);
+   }else{
+      $update_payment = $conn->prepare("UPDATE `orders` SET courier_type = ? WHERE id = ?");
+      $update_payment->execute([$courier_type, $order_id]);
+   }
+
+   $order_id = $_POST['order_id'];
+   $order_tracking = $_POST['order_tracking'];
+   $order_tracking = filter_var($order_tracking, FILTER_SANITIZE_STRING);
+   if($order_tracking == ''){
+      $update_payment = $conn->prepare("UPDATE `orders` SET order_tracking = ? WHERE id = ?");
+      $update_payment->execute([$order_tracking = "-", $order_id]);
+   }else{
+      $update_payment = $conn->prepare("UPDATE `orders` SET order_tracking = ? WHERE id = ?");
+      $update_payment->execute([$order_tracking, $order_id]);
+   }
+   
    $message[] = 'Payment status updated!';
 }
 
@@ -34,55 +57,95 @@ if(isset($_GET['delete'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Placed Orders</title>
-
+   <title>Orders | Gemstar Cleaning Supplies International</title>
+   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
    <link rel="stylesheet" href="../css/admin_style.css">
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
 
 
 <style>
    .btn-primary {
-      background-color: #142d55;
+      background-color: #0856cf;
       border-radius: 10px;
+      width: 5%;
+      font-size: 1rem;
    }
     .btn-delete {
       border-radius: 10px;
-   background-color: #960e0e;
+   background-color: #142d55;
    color: white;
+   width: 5%;
+      font-size: 1rem;
 }
-.search-form form {
+.search-form form{
    display: flex;
-   gap: 1rem;
-   justify-content: flex-start;
-   align-items: center;
-   margin-left: 70px;
+   gap:1rem;
 }
-.search-form form input {
-   width: 40%; 
-   border: var(--border);
+
+.search-form form input{
+   width: 60%;
+   border:var(--border);
    border-radius: .5rem;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
-   padding: 1rem; 
-   font-size: 1.6rem; 
-   color: var(--black);
+   padding:1.4rem;
+   margin-left: 17.5%;
+   font-size: 1.8rem;
+   color:var(--black);
 }
-.search-form form button {
-   font-size: 2rem; 
-   height: 4.5rem; 
-   line-height: 4.5rem; 
+
+.search-form form button{
+   font-size: 2.5rem;
+   height: 5.5rem;
+   line-height: 5.5rem;
    background-color: var(--main-color);
    cursor: pointer;
-   color: var(--white);
+   color:var(--white);
    border-radius: .5rem;
-   width: 5rem; 
+   width: 6rem;
    text-align: center;
 }
-.search-form form button:hover {
+
+.search-form form button:hover{
+   background-color: var(--black);
+}
+.sorting{
+   font-style: 'Poppins';
+   font-size:1.5em;
+   font-weight: bolder;
+}
+.sorting_1{
+   font-style: 'Poppins';
+   font-size:1rem;
+   justify-content: center;
+   text-align: center;
+}
+/* td{
+   font-style: 'Poppins';
+   font-size:1.5rem;
+   justify-content: center;
+   text-align: center;
+   width: 70%;
+} */
+.container {
+   margin-top: 2%;
+   width: 100vw;
+   display: block;
+   overflow: auto;
+   align-items: center;
+   text-align: center;
+   border: 1px solid black;
+   border-radius: 10px;
+   border-collapse: collapse;
+   background-color: white;
+}
+ .search-form form button:hover {
    background-color: var(--black);
 }
       .dataTables_wrapper .dataTables_filter {
@@ -98,7 +161,14 @@ if(isset($_GET['delete'])){
 #ordersTable tr:nth-child(1) {
     background-color: #57e3ff!important;
     ;
+}.modal {
+  z-index: 1050; /* Adjust the value if needed */
 }
+
+.modal-backdrop {
+  z-index: 1040; /* Adjust the value if needed */
+}
+
 </style>
 </head>
 <body>
@@ -127,6 +197,8 @@ if(isset($_GET['delete'])){
                <th>Total Price</th>
                <th>Payment Method</th>
                <th>Payment Status</th>
+               <th>Courier Type</th>
+               <th>Status</th>
                <th>Actions</th>
             </tr>
          </thead>
@@ -145,6 +217,8 @@ if(isset($_GET['delete'])){
                      echo '<td>$' . $fetch_orders['total_price'] . '/-</td>';
                      echo '<td>' . $fetch_orders['method'] . '</td>';
                      echo '<td>' . $fetch_orders['payment_status'] . '</td>';
+                     echo '<td>' . $fetch_orders['courier_type'] . '</td>';
+                     echo '<td>' . $fetch_orders['order_tracking'] . '</td>';
                      echo '<td>
    <div class="btn-group" role="group">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal' . $fetch_orders['id'] . '">Edit</button>
@@ -160,39 +234,60 @@ if(isset($_GET['delete'])){
    </div>
 </section>
 <?php
-   $select_orders = $conn->prepare("SELECT * FROM `orders`");
-   $select_orders->execute();
-   if($select_orders->rowCount() > 0){
-      while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
-         echo '<div class="modal fade" id="editModal' . $fetch_orders['id'] . '" tabindex="-1" aria-labelledby="editModalLabel' . $fetch_orders['id'] . '" aria-hidden="true">
-            <div class="modal-dialog">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h5 class="modal-title" id="editModalLabel' . $fetch_orders['id'] . '">Edit Payment Status</h5>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <form action="" method="post">
-                     <div class="modal-body">
-                        <input type="hidden" name="order_id" value="' . $fetch_orders['id'] . '">
-                        <div class="mb-3">
-                           <label for="paymentStatus' . $fetch_orders['id'] . '" class="form-label">Payment Status:</label>
-                           <select name="payment_status" id="paymentStatus' . $fetch_orders['id'] . '" class="form-select">
-                              <option value="pending" ' . ($fetch_orders['payment_status'] == 'pending' ? 'selected' : '') . '>Pending</option>
-                              <option value="completed" ' . ($fetch_orders['payment_status'] == 'completed' ? 'selected' : '') . '>Completed</option>
+$select_orders = $conn->prepare("SELECT * FROM `orders`");
+$select_orders->execute();
+if ($select_orders->rowCount() > 0) {
+   while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
+      echo '<div class="modal fade" id="editModal' . $fetch_orders['id'] . '" tabindex="-1" aria-labelledby="editModalLabel' . $fetch_orders['id'] . '" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel' . $fetch_orders['id'] . '">Edit Order Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <form action="" method="post">
+                        <div class="modal-body">
+                           <input type="hidden" name="order_id" value="' . $fetch_orders['id'] . '">
+                           <p>Courier Type:</p>
+                           <input type="hidden" name="courier_type" value="">
+                           <select name="courier_type" id="courierType' . $fetch_orders['id'] . '" class="select" ' . ($fetch_orders['payment_status'] == "Pending" ? 'disabled' : '') . '>
+                              <option>' . $fetch_orders['courier_type'] . '</option>
+                              <!-- <option selected disabled>-</option> -->
+                              <option value="Own">Own</option>
+                              <option value="Third-party">Third-party</option>
+                           </select>
+                           <p>Status:</p>
+                           <input type="hidden" name="order_tracking" value="">
+                           <select name="order_tracking" id="orderTracking' . $fetch_orders['id'] . '" class="select" ' . ($fetch_orders['payment_status'] == "Pending" ? 'disabled' : '') . '>
+                              <option>' . $fetch_orders['order_tracking'] . '</option>
+                              <!-- <option selected disabled>-</option> -->
+                              <option value="Packed">Packed</option>
+                              <option value="To Ship">To Ship</option>
+                              <option value="Picked-up">Picked-up</option>
+                              <option value="To Receive">To Receive</option>
+                              <option value="Completed">Completed</option>
+                           </select>
+                           <p>Payment Status:</p>
+                           <select name="payment_status" id="paymentStatus' . $fetch_orders['id'] . '" class="select">
+                              <option>' . $fetch_orders['payment_status'] . '</option>
+                              <!-- <option selected disabled>-</option> -->
+                              <option value="Pending">Pending</option>
+                              <option value="Completed">Completed</option>
                            </select>
                         </div>
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="update_payment">Save Changes</button>
-                     </div>
-                  </form>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                           <button type="submit" class="btn btn-primary" name="update_payment">Save Changes</button>
+                        </div>
+                     </form>
+                  </div>
                </div>
-            </div>
-         </div>';
-      }
+            </div>';
    }
+}
 ?>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -207,10 +302,10 @@ $(document).ready(function() {
       scrollX: true
    });
 
-   $('#datatableSearchButton').on('click', function() {
-      var searchValue = $('#datatableSearch').val();
-      table.search(searchValue).draw();
-   });
+   $('#datatableSearch').on('input', function() {
+   var searchValue = $(this).val();
+   table.search(searchValue).draw();
+});
 
        // Add ng filter dropdown sa header
        var paymentStatusColumn = table.column(7);

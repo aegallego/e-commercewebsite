@@ -624,6 +624,9 @@ section{
    background-color: var(--aquamarine);
 }
 
+.table2 tr:nth-child(1) {
+   background-color: var(--light-bg);
+}
 
 .fa-edit{
    height: 4.5rem;
@@ -649,7 +652,7 @@ a.history{
    justify-content: right;
    width: 80%;
    font-weight:800;
-   text-decoration: none;
+   text-decoration: underline;
 }
 
 .table2{

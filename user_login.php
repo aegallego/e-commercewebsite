@@ -1,4 +1,4 @@
-   <?php
+<?php
 
 include 'components/connect.php';
 
@@ -30,6 +30,10 @@ if(isset($_POST['submit'])){
    $select_user->execute([$email, $pass]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
+   $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ? AND password = ?"); 
+   $select_admin->execute([$email, $pass]);
+   $row_1 = $select_admin->fetch(PDO::FETCH_ASSOC);
+
    if($select_user->rowCount() > 0){
       $_SESSION['user_id'] = $row['id'];
       if(isset($_POST['remember_me'])){
@@ -40,7 +44,19 @@ if(isset($_POST['submit'])){
          setcookie('pass','',time() - (60*60*24));
       }
       header('location:home.php');
-   }else{
+   }
+   elseif($select_admin->rowCount() > 0){
+      $_SESSION['admin_id'] = $row_1['id'];
+      if(isset($_POST['remember_me'])){
+         setcookie('email',$_POST['email'],time() + (60*60*24));
+         setcookie('pass',$_POST['pass'],time() + (60*60*24));
+      }else{
+         setcookie('email','',time() - (60*60*24));
+         setcookie('pass','',time() - (60*60*24));
+      }
+      header('location:admin/dashboard.php');
+   }
+   else{
       $message[] = 'incorrect username or password!';
    }
 
@@ -54,7 +70,7 @@ if(isset($_POST['submit'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Log In | Gemstar Cleaning Supplies International</title>
+   <title>Login | Gemstar Cleaning Supplies International</title>
    <link rel="icon"  href="images/logo.png" type="image/x-icon"/>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" href="./css/style.css">

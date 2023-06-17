@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.21-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
@@ -16,7 +16,7 @@
 
 
 -- Dumping database structure for shop_db
-CREATE DATABASE IF NOT EXISTS `shop_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE IF NOT EXISTS `shop_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `shop_db`;
 
 -- Dumping structure for table shop_db.admins
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `password` varchar(50) NOT NULL,
   `contact` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.admins: ~0 rows (approximately)
+-- Dumping data for table shop_db.admins: ~1 rows (approximately)
 INSERT INTO `admins` (`id`, `name`, `password`, `contact`) VALUES
 	(1, 'admin', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2', '');
 
@@ -42,16 +42,19 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `quantity` int(10) NOT NULL,
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.cart: ~6 rows (approximately)
+-- Dumping data for table shop_db.cart: ~9 rows (approximately)
 INSERT INTO `cart` (`id`, `user_id`, `pid`, `name`, `price`, `quantity`, `image`) VALUES
-	(76, 1, 5446, 'sampleuli', 222, 1, 'democ4a6cbfa545c40b833149add65864a38.jpg'),
 	(77, 18, 5206, 'Liquid Dishwashing', 290, 1, '132842781_236886414513662_14972331034014.webp'),
 	(78, 18, 5205, 'Liquid Hand Soap with Antibac', 132, 1, '132871751_236199177863706_54298847955627.webp'),
 	(79, 18, 5211, 'Chlorine Granules', 128, 1, '287704315_404612814926163_4338534693503362088_n.webp'),
 	(80, 18, 5217, 'Helios Wax', 870, 1, '275978301_442821954264413_5389748305084901754_n.webp'),
-	(81, 18, 5231, 'Furniture Polish', 615, 1, '161717765_274982420874049_5989901269014873023_n.webp');
+	(81, 18, 5231, 'Furniture Polish', 615, 1, '161717765_274982420874049_5989901269014873023_n.webp'),
+	(88, 19, 5194, 'Lobby Dust Pan (Wind Proof 2)', 350, 1, 'CU_ Dustpan Lobby1.webp'),
+	(97, 1, 5189, 'Ceiling Broom', 100, 1, 'CU_ Broom Ceiling.webp'),
+	(98, 1, 5188, 'Plastic Broom (Nylon Bristle; Steel Handle)', 90, 1, 'CU_ Broom Nylon.webp'),
+	(99, 1, 5190, 'Stick Broom', 50, 1, 'CU_ Broom Stick.webp');
 
 -- Dumping structure for table shop_db.messages
 CREATE TABLE IF NOT EXISTS `messages` (
@@ -61,16 +64,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `email` varchar(100) NOT NULL,
   `number` varchar(12) NOT NULL,
   `message` varchar(500) NOT NULL,
+  `message_status` varchar(100) NOT NULL,
+  `dates` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1087 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.messages: ~5 rows (approximately)
-INSERT INTO `messages` (`id`, `user_id`, `name`, `email`, `number`, `message`) VALUES
-	(4, 1, 'adasd', 'sadsad@gmail.com', '234234234', 'dsasdasd'),
-	(5, 1, 'adasd', 'sadsad@gmail.com', '234234234', 'dsasdasd'),
-	(6, 1, 'vincent', 'asdasd@gmail.com', '91512135215', 'dfghjkl;'),
-	(7, 1, 'fghjk', 'vbgayotayan2020@plm.edu.ph', '121321321', 'asdasdsadasxasdasdsa'),
-	(8, 1, 'rhtytrhyr', 'vgayotayan@gmail.com', '09556123252', 'hkjwhdfklhdk rl.krejtkjretvn');
+-- Dumping data for table shop_db.messages: ~2 rows (approximately)
+INSERT INTO `messages` (`id`, `user_id`, `name`, `email`, `number`, `message`, `message_status`, `dates`) VALUES
+	(1080, 1, 'ada', 'vbgayotayan2020@plm.edu.ph', '06521651265', 'asdasdasdasdas', '', '0000-00-00 00:00:00'),
+	(1086, 24, 'asdas', 'vbgayotayan2020@plm.edu.ph', '09272757748', 'adda', '', '2023-06-15 10:15:44');
 
 -- Dumping structure for table shop_db.orders
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -90,12 +92,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `courier_type` varchar(20) DEFAULT '-',
   `ref_num` int(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.orders: ~14 rows (approximately)
+-- Dumping data for table shop_db.orders: ~19 rows (approximately)
 INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`, `request`, `order_tracking`, `courier_type`, `ref_num`) VALUES
 	(51, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, asdasd, asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Completed', NULL, 'Packed', '-', 0),
-	(52, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Pending', '', 'Packed', 'Own', 0),
+	(52, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Completed', '', 'To Ship', 'Own', 0),
 	(53, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, asdasd, asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Completed', NULL, 'Completed', 'Third-party', 0),
 	(54, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Completed', 'with 10k', 'Packed', 'Own', 0),
 	(57, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'dustpan (12 x 1) - ', 12, '2023-04-24 00:00:00', 'Completed', '', 'Completed', 'Third-party', 0),
@@ -107,16 +109,21 @@ INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `add
 	(64, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'Plastic Broom (Nylon Bristle; Steel Handle) (90 x 5) - sampleuli (222 x 1) - ', 672, '2023-05-13 10:33:58', 'Completed', 'may poging kasama', 'Completed', 'Own', 0),
 	(65, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'Lobby Dust Pan (Wind Proof 2) (350 x 12) - sampleuli (222 x 1) - ', 4422, '2023-05-13 21:21:56', 'Completed', '', 'Own', 'Own', 0),
 	(66, 1, 'asdasd', '931323123', 'vbgayotayan2020@plm.edu.ph', 'cash on delivery', 'asdasd, , asda, asdas', 'sampleuli (222 x 1) - ', 222, '2023-05-13 23:19:15', 'Completed', '', 'Packed', 'Own', 0),
-	(67, 17, 'Rei Sebastian', '0995766025', 'princessrei@gmail.com', 'cash on delivery', 'Batangas St. Blumentritt, , Manila, Philippines', 'sampleuli (222 x 1) - ', 222, '2023-05-14 01:31:34', 'Pending', '', '-', 'Own', 0);
+	(67, 17, 'Rei Sebastian', '0995766025', 'princessrei@gmail.com', 'cash on delivery', 'Batangas St. Blumentritt, , Manila, Philippines', 'sampleuli (222 x 1) - ', 222, '2023-05-14 01:31:34', 'Pending', '', '-', 'Own', 0),
+	(68, 1, 'vincent', '0', 'malapitnamagchristmas@gmail.co', 'cash on delivery', '2007 Anakbayan, Malate, , Manila, NCR', 'Plastic Broom (Nylon Bristle; Steel Handle) (90 x 1) Soft Broom/Walis Tambo (Baguio) (110 x 1) Stick Broom (50 x 1) Dust Mop Refill (Luxury) (980 x 1) ', 1230, '2023-05-23 07:16:37', 'Completed', '', 'Completed', 'Third-party', 1234567890),
+	(69, 19, 'Vencio', '0920255487', 'vgayotayan@gmail.com', 'cash on delivery', 'area c gate 54, , manila, ph', 'Ceiling Broom (100 x 1) ', 100, '2023-05-23 08:34:57', 'Pending', '', '-', 'Own', 0),
+	(70, 1, 'vincent', '0', 'malapitnamagchristmas@gmail.co', 'cash on delivery', '2007 Anakbayan, Malate, , Manila, NCR', 'Ceiling Broom (100 x 1) ', 100, '2023-05-23 10:20:07', 'Completed', '', ' ', ' ', 0),
+	(71, 21, 'VincentG', '0920255476', 'malapitnamagchristmas@gmail.co', 'cash on delivery', '2007 Anakbayan, Malate, , Manila, NCR', 'Rubber Gloves (Nova 45) (95 x 1) Lobby Dust Pan (Wind Proof 2) (350 x 1) Push Brush (Steel) (250 x 1) Fabric Softener (342 x 1) Stick Broom (50 x 1) Hand Brush (Light Duty) (35 x 1) ', 1122, '2023-05-23 11:01:45', 'Pending', '', '-', 'Own', 0),
+	(72, 21, 'VincentG', '0920255476', 'vgayotayan@gmail.com', 'cash on delivery', 'area c gate 54, , manila, ph', 'Ceiling Broom (100 x 12) ', 1200, '2023-05-23 11:19:52', 'Pending', '', '-', 'Own', 0);
 
 -- Dumping structure for table shop_db.productline
 CREATE TABLE IF NOT EXISTS `productline` (
   `Productline_ID` int(11) NOT NULL,
   `ProductlineName` varchar(255) NOT NULL DEFAULT '',
   `ProductlineDescription` varchar(255) DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.productline: ~20 rows (approximately)
+-- Dumping data for table shop_db.productline: ~21 rows (approximately)
 INSERT INTO `productline` (`Productline_ID`, `ProductlineName`, `ProductlineDescription`) VALUES
 	(4381, 'Brooms & Dust Pan', ' Brooms feature bristles that clear away dust, dirt, and debris from indoor and outdoor floors. Dust pans pick up dirt and debris for disposal without getting hands dirty.'),
 	(4382, 'Brush', ' A brush is a common tool with bristles, wire or other filaments.'),
@@ -137,7 +144,8 @@ INSERT INTO `productline` (`Productline_ID`, `ProductlineName`, `ProductlineDesc
 	(4397, 'Disinfectant Chemicals', 'Chemical disinfectants are applied to non-living objects and materials, such as surfaces and instruments to control and prevent infection.'),
 	(4398, 'Footmat', 'Foot is a mat placed before or inside a door for wiping dirt from the shoes'),
 	(4399, 'Machines & Equipment', ' '),
-	(4400, 'PPE', 'Personal Protective Equipment (PPE) is specialized clothing or equipment worn by an employee for protection against infectious materials.');
+	(4400, 'PPE', 'Personal Protective Equipment (PPE) is specialized clothing or equipment worn by an employee for protection against infectious materials.'),
+	(48390, 'Branded Products', 'bcrjvcrlmc');
 
 -- Dumping structure for table shop_db.products
 CREATE TABLE IF NOT EXISTS `products` (
@@ -151,33 +159,33 @@ CREATE TABLE IF NOT EXISTS `products` (
   `image_03` varchar(100) NOT NULL,
   `product_stock` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5447 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5449 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.products: ~254 rows (approximately)
+-- Dumping data for table shop_db.products: ~253 rows (approximately)
 INSERT INTO `products` (`id`, `Productline_ID`, `name`, `details`, `price`, `image_01`, `image_02`, `image_03`, `product_stock`) VALUES
-	(5187, 4381, 'Soft Broom/Walis Tambo (Baguio)', ' SAMPLE', 110, 'broom.jpg', 'Baguio_Soft_Broom_Regular.jpg', '956687635958ce00677822284a9a59b3.jpg', 300),
-	(5188, 4381, 'Plastic Broom (Nylon Bristle; Steel Handle)', ' ', 90, 'CU_ Broom Nylon.webp', 'nylon.jpg', 'B.jpg', 300),
-	(5189, 4381, 'Ceiling Broom', ' ', 100, 'CU_ Broom Ceiling.webp', '3463.jpg', 'C.jpg', 300),
-	(5190, 4381, 'Stick Broom', ' ', 50, 'CU_ Broom Stick.webp', '3464.jpg', 'D.jpg', 300),
+	(5187, 4381, 'Soft Broom/Walis Tambo (Baguio)', ' SAMPLE', 110, 'broom.jpg', 'Baguio_Soft_Broom_Regular.jpg', '956687635958ce00677822284a9a59b3.jpg', 298),
+	(5188, 4381, 'Plastic Broom (Nylon Bristle; Steel Handle)', ' ', 90, 'CU_ Broom Nylon.webp', 'nylon.jpg', 'B.jpg', 297),
+	(5189, 4381, 'Ceiling Broom', ' ', 100, 'CU_ Broom Ceiling.webp', '3463.jpg', 'C.jpg', 286),
+	(5190, 4381, 'Stick Broom', ' ', 50, 'CU_ Broom Stick.webp', '3464.jpg', 'D.jpg', 298),
 	(5191, 4381, 'Dust Pan (Plastic)', ' ', 55, 'CU_ Dustpan Plastic.webp', '3465.jpg', 'E.jpg', 300),
-	(5192, 4381, 'Dust Pan (Stainless)', ' ', 100, 'CU_ Dustpan stainless.webp', '3466.jpg', 'F.jpg', 300),
-	(5193, 4381, 'Lobby Dust Pan (Wind Proof 1)', ' ', 300, 'CU_ Dustpan Lobby.webp', '3467.jpg', 'G.jpg', 300),
-	(5194, 4381, 'Lobby Dust Pan (Wind Proof 2)', ' ', 350, 'CU_ Dustpan Lobby1.webp', '3468.jpg', 'H..jpg', 300),
-	(5195, 4382, 'Hand Brush (Light Duty)', ' ', 35, '249025916_237555871770289_2986901901892900509_n.webp', '3469.jpg', 'I.jpg', 300),
+	(5192, 4381, 'Dust Pan (Stainless)', ' ', 100, 'CU_ Dustpan stainless.webp', '3466.jpg', 'F.jpg', 299),
+	(5193, 4381, 'Lobby Dust Pan (Wind Proof 1)', ' ', 300, 'CU_ Dustpan Lobby.webp', '3467.jpg', 'G.jpg', 299),
+	(5194, 4381, 'Lobby Dust Pan (Wind Proof 2)', ' ', 350, 'CU_ Dustpan Lobby1.webp', '3468.jpg', 'H..jpg', 298),
+	(5195, 4382, 'Hand Brush (Light Duty)', ' ', 35, '249025916_237555871770289_2986901901892900509_n.webp', '3469.jpg', 'I.jpg', 299),
 	(5196, 4382, 'Hand Brush (Wood)', ' ', 35, '248410522_1079931102546708_8250657466331102931_n.webp', '3470.jpg', 'J.jpg', 300),
 	(5197, 4382, 'Hand Brush (Heavy Duty)', ' ', 45, '249873971_402388641482889_4782739926547625488_n.webp', 's-l1600.jpg', 'K.jpg', 300),
 	(5198, 4382, 'Steel Brush', ' ', 85, '255390694_1024699304765156_4859902121899734573_n.webp', 'C2076920-01.webp', 'L.jpg', 300),
-	(5199, 4382, 'Push Brush (Steel)', ' ', 250, '255161910_608920756901454_8556169964486788099_n.webp', 'bd6e7f10890985f62bd71ea7e7aa53f4.jpg_720x720q80.jpg_.webp', 'M.jpg', 300),
+	(5199, 4382, 'Push Brush (Steel)', ' ', 250, '255161910_608920756901454_8556169964486788099_n.webp', 'bd6e7f10890985f62bd71ea7e7aa53f4.jpg_720x720q80.jpg_.webp', 'M.jpg', 299),
 	(5200, 4382, 'Push Brush (Aluminum)', ' ', 295, '255161910_608920756901454_8556169964486788099_n.webp', '1f2338bde8964095de1e06c5165142de.jpg', 'N.jpg', 300),
 	(5201, 4382, 'Floor & Wall Brush (Steel)', ' ', 290, 'Floor _ Wall Steel.webp', 'UNIVERSAL+-+Brush+with+Steel+Handle+-+Close+Up-9small.jpg', 'O.jpg', 300),
 	(5202, 4382, 'Floor & Wall Brush (Aluminum)', ' ', 412, 'Floor _ Wall Aluminum.webp', 'UNIVERSAL+-FLoor+and+Wall+Deck+Brush+with+Aluminum+Handle+-+Close+Up-2small.jpg', 'P.webp', 300),
 	(5203, 4382, 'Push Brush (Wood)', ' ', 295, '205712338_523611715450185_5380211845663349111_n.webp', '24028c088d6ad7ec6aa57ae4783f8152.jpg', 'Q.jpg', 300),
 	(5204, 4383, 'Liquid Hand Soap with Antibac', 'Scent: Orange & Green Tea Packing: 3.78 liters/gallon', 528, '131934675_1315557855462663_2029304515074.webp', 'Hand-Soap-Gallon-LYSODEX-2.png', 'R.webp', 300),
-	(5205, 4383, 'Liquid Hand Soap with Antibac', 'Scent: Orange & Green Tea Packing: 1 liter/ pump bottle', 132, '132871751_236199177863706_54298847955627.webp', '1-l-liquid-soap-oil-500x500.webp', 'R.webp', 300),
+	(5205, 4383, 'Liquid Hand Soap with Antibac', 'Scent: Orange & Green Tea Packing: 1 liter/ pump bottle', 132, '132871751_236199177863706_54298847955627.webp', '1-l-liquid-soap-oil-500x500.webp', 'R.webp', 299),
 	(5206, 4383, 'Liquid Dishwashing', 'Scent: Orange & Green Tea Packing: 3.78 liters/gallon', 290, '132842781_236886414513662_14972331034014.webp', 'dishwashing_liquid_1_liter__1__1643258615_1cf7fb37_progressive.jpg', 'R.jpg', 300),
 	(5207, 4383, 'Liquid Dishwashing', 'Scent: Orange & Green Tea Packing: 1 liter/ pump bottle', 150, '132702859_465453921521157_29853787239442.webp', 'cb81a03ae32516244c274e5b85efdcae.jpg', 'R.jpg', 300),
 	(5208, 4383, 'Powder Soap', 'Packing: 1kg/pack', 200, '131894894_177045160820158_16663711683467.webp', '6fc0ad89928e7aa2937a40e63ff27274.jpg', 'S.webp', 300),
-	(5209, 4383, 'Fabric Softener', 'Scent: Downy Packing: 3.78liters/gallon', 342, 'Fabric Softener2.webp', '0659fecfe9e2334e0544bbbb88bf6266.jpg', 'T.webp', 300),
+	(5209, 4383, 'Fabric Softener', 'Scent: Downy Packing: 3.78liters/gallon', 342, 'Fabric Softener2.webp', '0659fecfe9e2334e0544bbbb88bf6266.jpg', 'T.webp', 299),
 	(5210, 4383, 'Liquid Bleach', 'Scent: Downy Packing: 3.78liters/gallon', 135, '170118468_2848233535494543_6536059141715582692_n.webp', 'Ecobudget-Premium-Liquid-Bleach.jpg', 'S.jpg', 300),
 	(5211, 4383, 'Chlorine Granules', 'Packing: 1kg/pack', 128, '287704315_404612814926163_4338534693503362088_n.webp', 'de3acf2e91be23d9fcebf4884566f7db.jpg_720x720q80.jpg_.webp', 'T.jpg', 300),
 	(5212, 4383, 'All Purpose Cleaner', 'Packing: 3.78liters/gallon', 250, '276096805_1006082133640432_7626118361281630174_n.webp', '51pcTz41hQL._AC_UF1000,1000_QL80_.jpg', 'U.jpg', 300),
@@ -266,7 +274,7 @@ INSERT INTO `products` (`id`, `Productline_ID`, `name`, `details`, `price`, `ima
 	(5295, 4388, 'Rubber Gloves (Premium)', ' ', 126, '141472967_418411969214694_3489340623265624118_n.webp', '51Wz2SwxB1S._AC_UL1200_.jpg', 'A71.jpg', 300),
 	(5296, 4388, 'Cotton Gloves with Rubberized Orange Palm', ' ', 71, '189185978_3536678523104844_4816651267897566745_n.webp', '17be33e208cf8967528fdf93c6b07e34.jpg_720x720q80.jpg_.webp', 'A72.jpg', 300),
 	(5297, 4388, 'Rubber Gloves (Nova 38)', ' ', 85, '131904638_419869132474607_8146940532910150243_n.webp', '1d05fe366712bbeabbbca56eaf4d2ab7.png_720x720q80.png_.webp', 'A73.jpg', 300),
-	(5298, 4388, 'Rubber Gloves (Nova 45)', ' ', 95, '140874311_365365294887544_7194903204065844849_n.webp', 'Nova-45-2-copy-700x700.jpg', 'A74.jpg', 300),
+	(5298, 4388, 'Rubber Gloves (Nova 45)', ' ', 95, '140874311_365365294887544_7194903204065844849_n.webp', 'Nova-45-2-copy-700x700.jpg', 'A74.jpg', 299),
 	(5299, 4388, 'Rubber Gloves (Nova Super 75)', ' ', 79, '151705462_758457284785452_7404459996599913096_n.webp', 'Nova-super-75-copy.jpg', 'A75.jpg', 300),
 	(5300, 4388, 'Disposable Gloves (Vinyl)', ' ', 55, '141786380_2378894718932898_9043211484201691179_n.webp', 'Disposable-Vinyl-Gloves-Medium-100pcs-50016671.webp', 'A76.jpg', 300),
 	(5301, 4388, 'Disposable Gloves (Nitrile)', ' ', 60, '260922709_921360825424596_6230006724423884793_n.webp', '61jppFwvrwS._SL1500_.jpg', 'A77.jpg', 300),
@@ -299,7 +307,7 @@ INSERT INTO `products` (`id`, `Productline_ID`, `name`, `details`, `price`, `ima
 	(5328, 4391, 'Mop Head Infinity 12oz.', ' ', 265, 'CU_ Mop Head 12oz.webp', 'abda041deb19117937e47eccf8a9015d.jpg_720x720q80.jpg_.webp', 'rubbermaid-commercial-products-mop-heads-rcpf11612-64_1000.webp', 300),
 	(5329, 4391, 'Dust Mop Set (Luxury)', '36" & 24"', 683, 'ipad shots 2 203.webp', 'f3aaf8461e0015f01dcf125794a285c9.jpg', 'dust_mop_2-600x600.jpg', 300),
 	(5330, 4391, 'Dust Mop Set (Deluxe)', '36" & 24"', 576, 'ipad3 152.webp', 'https://static.wixstatic.com/media/b34117_255b7728584043c88812b51bf5e36424~mv2_d_2592_1936_s_2.jpg/v', 'download (9).jpg', 300),
-	(5331, 4391, 'Dust Mop Refill (Luxury)', '36" & 24"', 980, '122127577_817775248973359_54162026495019.webp', '889cab31c0acc2a099062261bfb9314b.jpg', '3d204c523dafce2a75d0372f885d6312.jpg', 300),
+	(5331, 4391, 'Dust Mop Refill (Luxury)', '36" & 24"', 980, '122127577_817775248973359_54162026495019.webp', '889cab31c0acc2a099062261bfb9314b.jpg', '3d204c523dafce2a75d0372f885d6312.jpg', 299),
 	(5332, 4391, 'Dust Mop Refill (Deluxe)', '36" & 24"', 850, '122252000_1078789315870798_8946182463091.webp', 'e713ad42cc5642a3671de1ffbac8d7b4.jpg', 'S-7119BLU.webp', 300),
 	(5333, 4392, 'Orocan Plastic Pail 10L', 'Diameter: 27cm , Height: 26cm', 124, 'Orocan 10L.webp', '5715d5c78c30a5b31aa6363496ad77f1.jpg', '854ed3b1744d707890f8b1a014a9a33c.jpg', 300),
 	(5334, 4392, 'Orocan Plastic Pail 12L', 'Diameter: 29cm , Height: 27cm', 174, 'Orocan 12L.webp', 'OrocanUtilityPail12L_1200x1200.webp', 'ARD0023_1.webp', 300),
@@ -407,8 +415,7 @@ INSERT INTO `products` (`id`, `Productline_ID`, `name`, `details`, `price`, `ima
 	(5436, 4399, 'Automatic Dispenser (with Stand)', 'Feature: Foam Soap Dispenser, Double Soap Dispenser, Alcohol Dispenser Capacity: 1000ml Installation: Wall mounted Product Size: 158*116*286mm Material: ABS Plastic Tripod stand: 3-4ft', 1699, 'D_ Dispenser w stand (1).webp', '3b535d4fe1b2aa22ca141c5c459f56fc.jpg', '554b2d2dd41d501eeb47e0aa9071b40d.jpg', 300),
 	(5437, 4399, 'Automatic Dispenser & K3 Plus Mini Scanner (with Stand)', 'Feature: Foam Soap Dispenser, Double Soap Dispenser, Alcohol Dispenser Capacity: 1000ml Installation: Wall mounted Product Size: 158*116*286mm Material: ABS Plastic Tripod stand: 3-4ft', 2799, 'D_ Dispenser combo.webp', '9bc7cbf6566f5ce48b9c3ed4ba03721b (1).jpg', '81a0dca425d4e3a1885dae46acbe8f41.jpg', 300),
 	(5438, 4400, 'Disposable Facemask 3PLY (Indoplas)', '50pcs/box', 140, 'Facemask Indoplas.webp', 'Indoplas-Face-Masks.jpg', 'e83fd162-3669-519c-199e-1f225f0afb32.jpg', 300),
-	(5439, 4400, 'Washable Face Mask (St. Patrick)', '', 35, '82d085ce4c4bbd716f76073d46c69727.jpg', 'resize.webp', 'Y2098417-01.webp', 300),
-	(5446, 4381, 'sampleuli', 'sampleuli', 222, 'democ4a6cbfa545c40b833149add65864a38.jpg', 'democ4a6cbfa545c40b833149add65864a38.jpg', 'democ4a6cbfa545c40b833149add65864a38.jpg', 300);
+	(5439, 4400, 'Washable Face Mask (St. Patrick)', '', 35, '82d085ce4c4bbd716f76073d46c69727.jpg', 'resize.webp', 'Y2098417-01.webp', 300);
 
 -- Dumping structure for table shop_db.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -423,11 +430,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `exp_date` varchar(50) NOT NULL,
   `reset_link_token` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table shop_db.users: ~16 rows (approximately)
+-- Dumping data for table shop_db.users: ~19 rows (approximately)
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `flat`, `city`, `state`, `number`, `exp_date`, `reset_link_token`) VALUES
-	(1, 'vincent', 'vbgayotayan2020@plm.edu.ph', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', '', '', '', '0', '', ''),
+	(1, 'vincent', 'vbgayotayan2020@plm.edu.ph', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', '', '', '', '0', '2023-05-23 19:25:14', '1df8baf53c55a5f8a7ef8c86a2c9f8662623'),
 	(3, 'asdasdsadasdd', 'sadasdasd', '8cb2237d0679ca88db6464eac60da96345513964', '', '', '', '0', '', ''),
 	(4, 'sdkasndkan', 'vbaskdjlkas@gmail.com', '52184786051456f44a5648d4e5e4806976e8337d', '', '', '', '0', '', ''),
 	(5, 'dasdasd', 'asdasasd@gmail.com', '52184786051456f44a5648d4e5e4806976e8337d', '', '', '', '0', '', ''),
@@ -441,9 +448,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `flat`, `city`, `state`,
 	(13, 'vince', 'vince@gmail.com', '52184786051456f44a5648d4e5e4806976e8337d', 'ksdajsdkajk', '', '', '09351543215', '', ''),
 	(14, 'hello', 'hello@gmail.com', '020c2943c94463499f714e3495176dba4d495daf', '235 Area C Parola, , NCR', '', '', '09228654321', '', ''),
 	(15, 'Hi', 'Hi@gmail.com', '2c6b74058fd29b4d3f61fe63fcb9789f2bf4c570', '235 Area C Parola, Binondo, Manila, NCR', '', '', '09564212397', '', ''),
-	(16, 'aestacio', 'malapitnamagchristmas@gmail.co', 'e50c16f9220b01c4ff90c2056e218649139ef391', '2007 Anakbayan, Malate', 'Manila', 'NCR', '09202665833', '', ''),
 	(17, 'princessrei', 'princessrei@gmail.com', 'd2d62b41298e7d3dd8815b2ec69a7249658dc043', 'Batangas St. Blumentritt', 'Manila', 'Philippines', '09957660251', '', ''),
-	(18, 'aubrey', 'buzztinbieber415@gmail.com', '7428764a5ae7ef81fc2625bacbb6dc0fca194228', 'malete', 'manila', 'ph', '09202665833', '', '');
+	(18, 'aubrey', 'buzztinbieber415@gmail.com', '7428764a5ae7ef81fc2625bacbb6dc0fca194228', 'malete', 'manila', 'ph', '09202665833', '', ''),
+	(20, 'vincentqtie', 'bins@gmail.com', '661ae469261814a6bb2dd25247e4a7cf17b73c02', '2007 Anakbayan, Malate', 'Manila', 'NCR', '09584651254', '', ''),
+	(21, 'VincentG', 'vgayotayan@gmail.com', '7428764a5ae7ef81fc2625bacbb6dc0fca194228', 'area c gate 54', 'manila', 'ph', '09202554766', '', ''),
+	(24, 'VincentBG', 'vbg2020@gmail.com', '29d66c0162b6560e6d6869284aa7107361d51b7b', '235 Area C Parola, Binondo', 'Manila', 'NCR', '09272757748', '', '');
 
 -- Dumping structure for table shop_db.wishlist
 CREATE TABLE IF NOT EXISTS `wishlist` (
@@ -454,7 +463,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   `price` int(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table shop_db.wishlist: ~0 rows (approximately)
 

@@ -13,7 +13,10 @@ if(isset($_SESSION['user_id'])){
 include 'components/wishlist_cart.php';
 
 ?>
-
+         
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +33,35 @@ include 'components/wishlist_cart.php';
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
-
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="../js/admin_script.js"></script>
+   <script>
+      $(document).ready(function() {
+         $('#search_box').on('input', function() {
+            var searchQuery = $(this).val();
+            if (searchQuery.length >= 0) {
+               $.ajax({
+                  url: 'search.php',
+                  method: 'POST',
+                  data: { search_query: searchQuery },
+                  beforeSend: function() {
+                     // Display a loading spinner or any other visual indication of the search in progress
+                  },
+                  success: function(response) {
+                     $('#search_results').html(response);
+                  },
+                  error: function() {
+                     console.log('An error occurred during the search.');
+                  }
+               });
+            } else {
+               $('#search_results').empty();
+            }
+         });
+      });
+   </script>
 </head>
 <body>
    
@@ -117,30 +148,20 @@ include 'components/wishlist_cart.php';
    </div>
 
 </section>
-<!-- search bar -->
-
+<section class="products">
 <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search_box" placeholder="search products here..." maxlength="100" class="box" required>
+      <input type="text" name="search_box" id="search_box" placeholder="Search products here..." maxlength="100" class="box" required>
       <button type="submit" class="fas fa-search" name="search_btn"></button>
    </form>
 </section>
-<!-- end of search bar -->
-
-<section class="products">
-
-   <h1 class="heading"> products</h1>
-
-   <div class="box-container">
-
-<?php
-  if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
-  $search_box = $_POST['search_box'];  
-  $select_products = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%'");
-  $select_products->execute();
-  if($select_products->rowCount() > 0){
-   while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){   
-?>
+<div class="box-container" id="search_results">
+   <?php
+   $select_prod = $conn->prepare("SELECT * FROM `products`");
+   $select_prod->execute();
+   if ($select_prod->rowCount() > 0) {
+      while ($fetch_product = $select_prod->fetch(PDO::FETCH_ASSOC)) {
+         ?>
 
 <form action="" method="post" class="box">
       <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
@@ -166,59 +187,14 @@ include 'components/wishlist_cart.php';
 }
    else{
       echo '<p class="empty">no products found!</p>';
-   }}
-
-   ?>
-
- <?php
-     $select_products = $conn->prepare("SELECT * FROM `products`"); 
-     $select_products->execute();
-     if($select_products->rowCount() > 0){
-      while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
-   ?>
-   <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
-      <div class="boxes">
-      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt=""></div>
-      <div class="overflow">
-      <div class="name"><?= $fetch_product['name']; ?></div>
-      <div class="flex">
-         <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span> </span></div>
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-      </div>
-      </div>
-      <input type="submit" value="add to cart" class="btn <?= ($fetch_product['product_stock'] > 0)?'':'disabled'; ?>"  name="add_to_cart">
-   </form>
-   <?php
-      }
-}
-   else{
-      echo '<p class="empty">no products found!</p>';
    }
 
    ?>
 
-   </div>
-
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
+</div>
 <?php include 'components/footer.php'; ?>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 

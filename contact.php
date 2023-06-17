@@ -1,3 +1,15 @@
+<script>
+function timeMsg() {
+var t=setTimeout("myFunction1()",1000);
+}
+</script>
+
+<script>
+function myFunction1() {
+  alert("Your message has already been sent! Please wait for admin's response.");
+};
+</script>
+
 <?php
 
 include 'components/connect.php';
@@ -10,12 +22,13 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 }; 
 
+
 if(isset($_POST['send'])){
 
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
    $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING); 
+   $email = filter_var($email, FILTER_SANITIZE_STRING);
    $number = $_POST['number'];
    $number = filter_var($number, FILTER_SANITIZE_STRING);
    $msg = $_POST['msg'];
@@ -24,18 +37,18 @@ if(isset($_POST['send'])){
    $select_message = $conn->prepare("SELECT * FROM `messages` WHERE name = ? AND email = ? AND number = ? AND message = ?");
    $select_message->execute([$name, $email, $number, $msg]);
 
-   if($select_message->rowCount() > 10){
-      $message[] = 'already sent message!';
-   }else{
-
-      $insert_message = $conn->prepare("INSERT INTO `messages`(user_id, name, email, number, message) VALUES(?,?,?,?,?)");
+      $insert_message = $conn->prepare("INSERT INTO `messages` (user_id, name, email, number, message) VALUES(?,?,?,?,?)");
       $insert_message->execute([$user_id, $name, $email, $number, $msg]);
 
       $message[] = 'sent message successfully!';
+      // echo ' <script>
+      // window.location.reload();
+      // </script>
+      // ';
 
    }
 
-}
+
 
 
 ?>
@@ -46,7 +59,7 @@ if(isset($_POST['send'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Contact Us | Gemstar Cleaning Supplies International</title>
+   <title>Contact</title>
    <link rel="icon"  href="images/logo.png" type="image/x-icon"/>
 
    <!-- font awesome cdn link  -->
@@ -120,18 +133,31 @@ if(isset($_POST['send'])){
         </div>
 
         <div class="contact-form">
+          <?php
+          if($user_id == ''){
+              echo '<p class="empty">please login to see your orders</p>';
+          }else{
+              $select_users = $conn->prepare("SELECT * FROM `users`");
+              $select_users->execute();
+              $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
+
+              $select_messages = $conn->prepare("SELECT * FROM `messages` WHERE user_id = ?");
+              $select_messages->execute([$user_id]);
+              $fetch_messages = $select_messages->fetch(PDO::FETCH_ASSOC);
+              
+          ?>
           <span class="circle one"></span>
           <span class="circle two"></span>
 
-          <form action="" method="post">
+          <form action="" method="POST">
             <h3 class="title">Contact us</h3>
             <div class="input-container">
-              <input type="text" name="name" class="input" required maxlength="20" />
+              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
               <label for="">Name</label>
               <span>Name</span>
             </div>
             <div class="input-container">
-              <input type="email" name="email" class="input" required maxlength="50"/>
+              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> " disabled/>
               <label for="">Email</label>
               <span>Email</span>
             </div>
@@ -145,7 +171,17 @@ if(isset($_POST['send'])){
               <label for="">Message</label>
               <span>Message</span>
             </div>
-            <input type="submit" name="send" value="Send Message" class="btn-s" />
+            <input type="submit" name="send" value="Send Message" class="btn-s <?php $count = 0; if($fetch_messages['message'] != ''){ echo 'disabled'; $count += 1; }else{ echo ''; $count = 0; }; ?>"/>
+            <?php
+          }
+               if($count > 0){
+                echo'
+                <script>
+                        timeMsg();
+                </script>
+                ';
+      }
+            ?>
           </form>
         </div>
       </div>
@@ -153,19 +189,15 @@ if(isset($_POST['send'])){
 
 
 
-
-
-
-
-
-
-
-
-
 <?php include 'components/footer.php'; ?>
 
 <script src="js/script.js"></script>
 <script src ="js/contact.js"></script>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 
 </body>
 </html>

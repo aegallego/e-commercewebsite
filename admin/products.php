@@ -10,63 +10,63 @@ if(!isset($admin_id)){
    header('location:admin_login.php');
 };
 
-if(isset($_POST['add_product'])){
+// if(isset($_POST['add_product'])){
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $Productline_ID = $_POST['Productline_ID'];
-   $Productline_ID = filter_var($Productline_ID, FILTER_SANITIZE_STRING);
-   $price = $_POST['price'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
-   $product_stock = $_POST['product_stock']; 
-   $product_stock = filter_var($product_stock, FILTER_SANITIZE_STRING); 
-   $details = $_POST['details'];
-   $details = filter_var($details, FILTER_SANITIZE_STRING);
+//    $name = $_POST['name'];
+//    $name = filter_var($name, FILTER_SANITIZE_STRING);
+//    $Productline_ID = $_POST['Productline_ID'];
+//    $Productline_ID = filter_var($Productline_ID, FILTER_SANITIZE_STRING);
+//    $price = $_POST['price'];
+//    $price = filter_var($price, FILTER_SANITIZE_STRING);
+//    $product_stock = $_POST['product_stock']; 
+//    $product_stock = filter_var($product_stock, FILTER_SANITIZE_STRING); 
+//    $details = $_POST['details'];
+//    $details = filter_var($details, FILTER_SANITIZE_STRING);
 
 
-   $image_01 = $_FILES['image_01']['name'];
-   $image_01 = filter_var($image_01, FILTER_SANITIZE_STRING);
-   $image_size_01 = $_FILES['image_01']['size'];
-   $image_tmp_name_01 = $_FILES['image_01']['tmp_name'];
-   $image_folder_01 = '../uploaded_img/'.$image_01;
+//    $image_01 = $_FILES['image_01']['name'];
+//    $image_01 = filter_var($image_01, FILTER_SANITIZE_STRING);
+//    $image_size_01 = $_FILES['image_01']['size'];
+//    $image_tmp_name_01 = $_FILES['image_01']['tmp_name'];
+//    $image_folder_01 = '../uploaded_img/'.$image_01;
 
-   $image_02 = $_FILES['image_02']['name'];
-   $image_02 = filter_var($image_02, FILTER_SANITIZE_STRING);
-   $image_size_02 = $_FILES['image_02']['size'];
-   $image_tmp_name_02 = $_FILES['image_02']['tmp_name'];
-   $image_folder_02 = '../uploaded_img/'.$image_02;
+//    $image_02 = $_FILES['image_02']['name'];
+//    $image_02 = filter_var($image_02, FILTER_SANITIZE_STRING);
+//    $image_size_02 = $_FILES['image_02']['size'];
+//    $image_tmp_name_02 = $_FILES['image_02']['tmp_name'];
+//    $image_folder_02 = '../uploaded_img/'.$image_02;
 
-   $image_03 = $_FILES['image_03']['name'];
-   $image_03 = filter_var($image_03, FILTER_SANITIZE_STRING);
-   $image_size_03 = $_FILES['image_03']['size'];
-   $image_tmp_name_03 = $_FILES['image_03']['tmp_name'];
-   $image_folder_03 = '../uploaded_img/'.$image_03;
+//    $image_03 = $_FILES['image_03']['name'];
+//    $image_03 = filter_var($image_03, FILTER_SANITIZE_STRING);
+//    $image_size_03 = $_FILES['image_03']['size'];
+//    $image_tmp_name_03 = $_FILES['image_03']['tmp_name'];
+//    $image_folder_03 = '../uploaded_img/'.$image_03;
 
-   $select_products = $conn->prepare("SELECT * FROM `products` WHERE name = ?");
-   $select_products->execute([$name]);
+//    $select_products = $conn->prepare("SELECT * FROM `products` WHERE name = ?");
+//    $select_products->execute([$name]);
 
-   if($select_products->rowCount() > 0){
-      $message[] = 'product name already exist!';
-   }else{
+//    if($select_products->rowCount() > 0){
+//       $message[] = 'product name already exist!';
+//    }else{
 
-      $insert_products = $conn->prepare("INSERT INTO `products`(Productline_ID, name, details, price, product_stock, image_01, image_02, image_03) VALUES(?,?,?,?,?,?,?,?)");
-      $insert_products->execute([$Productline_ID, $name, $details, $price, $product_stock, $image_01, $image_02, $image_03]);
+//       $insert_products = $conn->prepare("INSERT INTO `products`(Productline_ID, name, details, price, product_stock, image_01, image_02, image_03) VALUES(?,?,?,?,?,?,?,?)");
+//       $insert_products->execute([$Productline_ID, $name, $details, $price, $product_stock, $image_01, $image_02, $image_03]);
 
-      if($insert_products){
-         if($image_size_01 > 2000000 OR $image_size_02 > 2000000 OR $image_size_03 > 2000000){
-            $message[] = 'image size is too large!';
-         }else{
-            move_uploaded_file($image_tmp_name_01, $image_folder_01);
-            move_uploaded_file($image_tmp_name_02, $image_folder_02);
-            move_uploaded_file($image_tmp_name_03, $image_folder_03);
-            $message[] = 'new product added!';
-         }
+//       if($insert_products){
+//          if($image_size_01 > 2000000 OR $image_size_02 > 2000000 OR $image_size_03 > 2000000){
+//             $message[] = 'image size is too large!';
+//          }else{
+//             move_uploaded_file($image_tmp_name_01, $image_folder_01);
+//             move_uploaded_file($image_tmp_name_02, $image_folder_02);
+//             move_uploaded_file($image_tmp_name_03, $image_folder_03);
+//             $message[] = 'new product added!';
+//          }
 
-      }
+//       }
 
-   }  
+//    }  
 
-};
+// };
 
 if(isset($_GET['delete'])){
 
@@ -95,8 +95,8 @@ if(isset($_GET['delete'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>products</title>
-
+   <title>Products | Gemstar Cleaning Supplies International</title>
+   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <link rel="stylesheet" href="../css/admin_style.css">
@@ -106,7 +106,7 @@ if(isset($_GET['delete'])){
 
 <?php include '../components/admin_header.php'; ?>
 
-<section class="add-products">
+<!-- <section class="add-products">
 
    <h1 class="heading">add product</h1>
 
@@ -162,7 +162,7 @@ if(isset($_GET['delete'])){
       <input type="submit" value="add product" class="btn" name="add_product">
    </form>
 
-</section>
+</section> -->
 
 <section class="show-products">
 
@@ -177,16 +177,16 @@ if(isset($_GET['delete'])){
          while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
    ?>
    <div class="box">
+      <span class="stocks">Stocks: <span><?= $fetch_products['product_stock']; ?></span></span>
       <div class="boxes">
       <img src="../uploaded_img/<?= $fetch_products['image_01']; ?>" alt=""></div>
       <div class="overflow">
       <div class="name"><?= $fetch_products['name']; ?></div>
       <div class="price">₱<span><?= $fetch_products['price']; ?></span> </div>
-      <div class="stock">No. of Stocks Available: <span><?= $fetch_products['product_stock']; ?></span> </div>
       <div class="details"><span><?= $fetch_products['details']; ?></span></div>
       </div>
       <div class="flex-btn">
-         <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">update</a>
+         <!-- <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">update</a> -->
          <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">delete</a>
       </div>
    </div>

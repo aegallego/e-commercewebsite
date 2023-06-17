@@ -19,7 +19,7 @@
 
       <nav class="navbar">
          <a href="../admin/dashboard.php">home</a>
-         <a href="../admin/products.php">products</a>
+         <a href="../admin/product_table.php">products</a>
          <a href="../admin/placed_orders.php">orders</a>
          <a href="../admin/admin_accounts.php">admins</a>
          <a href="../admin/users_accounts.php">users</a>
