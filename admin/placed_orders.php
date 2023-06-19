@@ -214,7 +214,7 @@ if(isset($_GET['delete'])){
                      echo '<td>' . $fetch_orders['number'] . '</td>';
                      echo '<td>' . $fetch_orders['address'] . '</td>';
                      echo '<td>' . $fetch_orders['total_products'] . '</td>';
-                     echo '<td>$' . $fetch_orders['total_price'] . '/-</td>';
+                     echo '<td>₱' . $fetch_orders['total_price'] . '</td>';
                      echo '<td>' . $fetch_orders['method'] . '</td>';
                      echo '<td>' . $fetch_orders['payment_status'] . '</td>';
                      echo '<td>' . $fetch_orders['courier_type'] . '</td>';
@@ -262,7 +262,7 @@ if ($select_orders->rowCount() > 0) {
                               <option>' . $fetch_orders['order_tracking'] . '</option>
                               <!-- <option selected disabled>-</option> -->
                               <option value="Packed">Packed</option>
-                              <option value="To Ship">To Ship</option>
+                              // <option value="To Ship">To Ship</option>
                               <option value="Picked-up">Picked-up</option>
                               <option value="To Receive">To Receive</option>
                               <option value="Completed">Completed</option>
