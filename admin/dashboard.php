@@ -18,12 +18,11 @@ if(!isset($admin_id)){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Dashboard | Gemstar Cleaning Supplies International</title>
-   <link rel="icon"  href="images/logo.png" type="image/x-icon"/>
-
+   <title>Dashboard | Gemstar Cleaning Supplies International</title>   
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
 
 </head>
 <body>
@@ -54,7 +53,7 @@ if(!isset($admin_id)){
             }
          ?>
          <h3><span>₱</span><?= $total_pendings; ?><span> </span></h3>
-         <p>total pendings</p>
+         <p>total pending payments</p>
          <a href="placed_orders.php?method" class="btn">see orders</a>
 
       </div>
@@ -71,7 +70,7 @@ if(!isset($admin_id)){
             }
          ?>
          <h3><span>₱</span><?= $total_completes; ?><span> </span></h3>
-         <p>completed orders</p>
+         <p>total completed payments</p>
 
             <a href="placed_orders.php?method=Completed" class="btn">see orders</a>
 

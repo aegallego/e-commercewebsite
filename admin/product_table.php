@@ -99,6 +99,22 @@ header('location:product_table.php');
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+   $('#search_box').keyup(function() {
+      var search = $(this).val();
+      $.ajax({
+         url: 'search_products.php',
+         type: 'POST',
+         data: {search: search},
+         success: function(response) {
+            $('.table2').html(response);
+         }
+      });
+   });
+});
+</script>
 
 </head>
 
@@ -112,7 +128,7 @@ header('location:product_table.php');
 
 <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search_box" placeholder="search product id, line, or name here..." maxlength="100" class="box" required>
+      <input type="text" name="search_box" id="search_box" placeholder="search product id, line, or name here..." maxlength="100" class="box" required>
       <button type="submit" class="fas fa-search" name="search_btn"></button>
    </form>
 </section>
@@ -128,14 +144,10 @@ header('location:product_table.php');
       </tr>
 
       <?php
-      $select_products = $conn->prepare("SELECT * FROM `products`");
-      $select_products->execute();
-      if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
-      $search_box = $_POST['search_box'];
-      $select_product = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%' OR Productline_ID LIKE '%{$search_box}%' OR id LIKE '%{$search_box}%'");
-      $select_product->execute();
-      if($select_products->rowCount() > 0 AND $select_product->rowCount() > 0){
-         while($fetch_products = $select_product->fetch(PDO::FETCH_ASSOC)){ 
+$select_products = $conn->prepare("SELECT * FROM `products`");
+$select_products->execute();
+if ($select_products->rowCount() > 0) {
+    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
       ?>
 
       <tr>
@@ -153,32 +165,11 @@ header('location:product_table.php');
 
       <?php
             }
-         }elseif($select_products->rowCount() > 0 AND $select_product->rowCount() <= 0){
+         } elseif ($select_products->rowCount() > 0 && $select_product->rowCount() <= 0) {
             echo '</table> <p class="empty">no products found!</p>';
-         }
+        }
       ?>
 
-      <?php
-      }else if($select_products->rowCount() > 0){
-         while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
-      ?>
-
-      <tr>
-         <td><?=$fetch_products['id']; ?></td>
-         <td><?=$fetch_products['Productline_ID']; ?></td> 
-         <td><?=$fetch_products['name']; ?></td>
-         <td><?=$fetch_products['product_stock']; ?></td>
-         <td>      
-            <div class="flex-btn">
-               <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">update</a>
-               <a href="product_table.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">delete</a>
-            </div>
-         </td>
-      </tr>
-      <?php
-         }
-      }
-      ?>
       </table>
 
 <div id="myModals" class="modal">

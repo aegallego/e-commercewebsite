@@ -61,10 +61,10 @@ if(isset($_GET['delete'])){
    <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+      <link rel="stylesheet" href="../css/admin_style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
-   <link rel="stylesheet" href="../css/admin_style.css">
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
 
@@ -110,6 +110,18 @@ if(isset($_GET['delete'])){
    border-radius: .5rem;
    width: 6rem;
    text-align: center;
+}
+.header .flex .navbar a{
+   margin:0 1rem;
+   font-size: 2rem;
+   color:var(--black);
+   text-decoration: none;
+   text-transform: capitalize;
+}
+
+.header .flex .navbar a:hover{
+   color:var(--main-color);
+   text-decoration: none;
 }
 
 .search-form form button:hover{
@@ -169,14 +181,14 @@ if(isset($_GET['delete'])){
   z-index: 1040; /* Adjust the value if needed */
 }
 
+
 </style>
 </head>
 <body>
-
 <?php include '../components/admin_header.php'; ?>
 
 <section class="orders">
-   <h1 class="heading">Placed Orders</h1>
+   <center><b h1 class="heading">Placed Orders</h1></b></center>
    
    <div class="search-form">
    <form>

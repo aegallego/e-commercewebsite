@@ -21,12 +21,39 @@ if(isset($_SESSION['user_id'])){
    <title>Purchase History | Gemstar</title>
    <link rel="icon"  href="images/logo.png" type="image/x-icon"/>
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="../js/admin_script.js"></script>
+   <script>
+      $(document).ready(function() {
+         $('#search_box').on('input', function() {
+            var searchQuery = $(this).val();
+            if (searchQuery.length >= 0) {
+               $.ajax({
+                  url: 'order-history_search.php',
+                  method: 'POST',
+                  data: { search_query: searchQuery },
+                  beforeSend: function() {
+                     // Display a loading spinner or any other visual indication of the search in progress
+                  },
+                  success: function(response) {
+                     $('#search_results').html(response);
+                  },
+                  error: function() {
+                     console.log('An error occurred during the search.');
+                  }
+               });
+            } else {
+               $('#search_results').empty();
+            }
+         });
+      });
+   </script>
 </head>
 <body>
    
@@ -34,10 +61,15 @@ if(isset($_SESSION['user_id'])){
 
 <section class="orders">
 
-   <h1 class="heading">placed orders</h1>
+   <h1 class="heading"> ORDER HISTORY</h1>
+   <section class="search-form">
+   <form action="" method="post">
+      <input type="text" name="search_box" id="search_box" placeholder="Search orders here..." maxlength="100" class="box" required>
+      <button type="submit" class="fas fa-search" name="search_btn"></button>
+   </form>
+</section>
 
-   <div class="box-container">
-
+   <div class="box-container" id="search_results">
    <?php
       if($user_id == ''){
          echo '<p class="empty">please login to see your orders</p>';
@@ -112,6 +144,7 @@ if(isset($_SESSION['user_id'])){
          echo '<p class="empty">no orders placed yet!</p>';
       }
       }
+
    ?>
 
    </div>
