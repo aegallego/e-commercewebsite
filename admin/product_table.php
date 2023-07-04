@@ -85,20 +85,25 @@ $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE pid = ?");
 $delete_wishlist->execute([$delete_id]);
 header('location:product_table.php');
 }
+include '../components/admin_header.php';
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Products | Gemstar Cleaning Supplies International</title>
-   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
+   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>   
+   
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"> <!-- size of table -->
    <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -120,29 +125,172 @@ $(document).ready(function() {
 
 <body>
 
-<?php include '../components/admin_header.php'; ?>
-
 <section class="product_table">
+<!-- <button class = "backb" onclick="history.back()">Back</button> -->
+<style>
+   a.logo{
+   text-decoration: none;
+}
 
-<h1 class="heading" style="display: flex; justify-content: center; align-content: center;">product table<button type="submit" class="fas fa-edit" style="margin:8px 0 0 15px;" name="update_qty" id="myBtnsss"></button></h1>
+  .backb {
+    width: 50px;
+    height: 50px;
+    /* background-image: url('../images/left.png');
+    background-size: cover; */
+    /* border: none; */
+    font-size: 2rem;
+    font-family: 'Poppins';
+    cursor: pointer;
+  }
+  .btn-primary {
+      background-color: #0856cf;
+      border-radius: 10px;
+      width: 5%;
+      font-size: 1rem;
+   }
+    .btn-delete {
+      border-radius: 10px;
+   background-color: #142d55;
+   color: white;
+   width: 5%;
+      font-size: 1rem;
+}
+.search-form form{
+   display: flex;
+   gap:1rem;
+}
 
-<section class="search-form">
-   <form action="" method="post">
-      <input type="text" name="search_box" id="search_box" placeholder="search product id, line, or name here..." maxlength="100" class="box" required>
-      <button type="submit" class="fas fa-search" name="search_btn"></button>
+.search-form form input{
+   width: 60%;
+   border:var(--border);
+   border-radius: .5rem;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   padding:1.4rem;
+   margin-left: 17.5%;
+   font-size: 1.8rem;
+   color:var(--black);
+}
+
+.search-form form button{
+   font-size: 2.5rem;
+   height: 5.5rem;
+   line-height: 5.5rem;
+   background-color: var(--main-color);
+   cursor: pointer;
+   color:var(--white);
+   border-radius: .5rem;
+   width: 6rem;
+   text-align: center;
+}
+.header .flex .navbar a{
+   margin:0 1rem;
+   font-size: 2rem;
+   color:var(--black);
+   text-decoration: none;
+   text-transform: capitalize;
+}
+
+.header .flex .navbar a:hover{
+   color:var(--main-color);
+   text-decoration: none;
+}
+
+.search-form form button:hover{
+   background-color: var(--black);
+}
+.sorting{
+   font-style: 'Poppins';
+   font-size:2rem;
+   font-weight: bolder;
+   justify-content: center;
+   text-align: center;
+}
+
+.sorting_1{
+   font-style: 'Poppins';
+   font-size:1.5rem;
+   justify-content: center;
+   text-align: center;
+}
+td{
+   font-style: 'Poppins';
+   font-size:1.5rem;
+   justify-content: center;
+   text-align: center;
+   width: 10%;
+}
+
+a.option-btn{
+   text-decoration: none;
+}
+a.delete-btn{
+   text-decoration: none;
+}
+.container {
+   margin-top: 2rem;
+   width: 100vw;
+   display: block;
+   overflow: auto;
+   align-items: center;
+   text-align: center;
+   border: 1px solid black;
+   border-radius: 10px;
+   border-collapse: collapse;
+   background-color: white;
+}
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+}
+ .search-form form button:hover {
+   background-color: var(--black);
+}
+      .dataTables_wrapper .dataTables_filter {
+   display: none;
+}
+#ordersTable tr:nth-child(even) {
+    background-color: #B7E3FF !important;
+}
+#ordersTable tr:nth-child(odd) {
+    background-color: #57e3ff!important;
+    ;
+}
+#ordersTable tr:nth-child(1) {
+    background-color: #57e3ff!important;
+    ;
+}.modal {
+  z-index: 1050; /* Adjust the value if needed */
+}
+
+.modal-backdrop {
+  z-index: 1040; /* Adjust the value if needed */
+}
+
+</style>
+
+<b h1 class="heading" style="display: flex; justify-content: center; align-content: center;">product table<button type="submit" class="fas fa-edit" style="margin:8px 0 0 15px;" name="update_qty" id="myBtnsss"></button></h1></b>
+<div class="search-form">
+   <form>
+      <input type="text" id="datatableSearch" placeholder="Search...">
+      <button type="button" id="datatableSearchButton"><i class="fas fa-search"></i></button>
    </form>
-</section>
-
-<table class="table2">
+</div>
 <a href="products.php" class="history" style="text-align: left;">View All Products</a>
+<div class ="container">
+   <table id ="ordersTable">
+
+      <thead>
       <tr>
          <th>Product ID</th>
          <th>Productline ID</th>
          <th>Product Name</th>
          <th>Stocks</th>
-         <th></th>
+         <th>Actions</th>
       </tr>
-
+      </thead> 
+      <tbody>
+</div>
       <?php
 $select_products = $conn->prepare("SELECT * FROM `products`");
 $select_products->execute();
@@ -169,7 +317,6 @@ if ($select_products->rowCount() > 0) {
             echo '</table> <p class="empty">no products found!</p>';
         }
       ?>
-
       </table>
 
 <div id="myModals" class="modal">
@@ -233,33 +380,49 @@ if ($select_products->rowCount() > 0) {
 </div>
 </div>
 </section>
-<script src="js/admin_script.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="../js/admin_script.js"></script>
+
+
 <script>
-   // Get the modal
-   var modal = document.getElementById("myModals");
+   
+$(document).ready(function() {
+   var table = $('#ordersTable').DataTable({
+      dom: 'Bfrtip',
+      searching: true,
+      scrollX: true
+   });
 
-   // Get the button that opens the modal
-   var btn = document.getElementById("myBtnsss");
+   $('#datatableSearch').on('input', function() {
+   var searchValue = $(this).val();
+   table.search(searchValue).draw();
+});
 
-   // Get the <span> element that closes the modal
-   var span = document.getElementsByClassName("close")[0];
+       // Add ng filter dropdown sa header
+       var paymentStatusColumn = table.column(7);
+    var paymentStatusData = paymentStatusColumn.data().unique();
+    var paymentStatusFilter = $('<select class="filter-dropdown"><option value="">All</option></select>');
 
-   // When the user clicks the button, open the modal 
-   btn.onclick = function() {
-   modal.style.display = "block";
-   }
+    // append sa header cell
+    $(paymentStatusColumn.header()).append(paymentStatusFilter);
 
-   // When the user clicks on <span> (x), close the modal
-   span.onclick = function() {
-   modal.style.display = "none";
-   }
+    paymentStatusFilter.on('change', function () {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        paymentStatusColumn.search(val ? '^' + val + '$' : '', true, false).draw();
+    });
 
-   // When the user clicks anywhere outside of the modal, close it
-   window.onclick = function(event) {
-   if (event.target == modal) {
-      modal.style.display = "none";
-   }
-   }
+    paymentStatusData.sort().each(function (d) {
+        paymentStatusFilter.append('<option value="' + d + '">' + d + '</option>');
+    });
+         $('.modal').on('hidden.bs.modal', function () {
+         $(this).find('form')[0].reset();
+      });
+});
+
 </script>
+
+
 
 </body>

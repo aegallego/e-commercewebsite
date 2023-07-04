@@ -60,28 +60,42 @@ if(isset($_GET['delete'])){
    <title>Orders | Gemstar Cleaning Supplies International</title>
    <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="../css/admin_style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
-
-
+   
 <style>
-   .btn-primary {
+.btn{
+display: flex;
+width: 100%;
+margin-top: 1.2rem;
+border-radius: .5rem;
+padding: 1rem 3rem;
+font-size: 1.4rem;
+color: var(--white);
+cursor: pointer;
+text-align: center;
+justify-content: center;
+align-content: flex-end;
+}
+a{
+   text-decoration: none;
+}
+.btn-primary {
       background-color: #0856cf;
       border-radius: 10px;
-      width: 5%;
-      font-size: 1rem;
+      /* width: 5%; */
+      font-size: 1.5rem;
    }
-    .btn-delete {
-      border-radius: 10px;
+.btn-delete {
+   border-radius: 10px;
    background-color: #142d55;
    color: white;
-   width: 5%;
-      font-size: 1rem;
+   /* width: 5%; */
+   font-size: 1.5rem;
 }
 .search-form form{
    display: flex;
@@ -131,6 +145,7 @@ if(isset($_GET['delete'])){
    font-style: 'Poppins';
    font-size:1.5em;
    font-weight: bolder;
+   width: 10%;
 }
 .sorting_1{
    font-style: 'Poppins';
@@ -138,16 +153,21 @@ if(isset($_GET['delete'])){
    justify-content: center;
    text-align: center;
 }
-/* td{
+td{
    font-style: 'Poppins';
    font-size:1.5rem;
    justify-content: center;
    text-align: center;
-   width: 70%;
-} */
+   width: 5%;
+}
+
+a.logo{
+   text-decoration: none;
+}
+
 .container {
    margin-top: 2%;
-   width: 100vw;
+   width: 97vw;
    display: block;
    overflow: auto;
    align-items: center;
@@ -182,12 +202,15 @@ if(isset($_GET['delete'])){
 }
 
 
+
 </style>
 </head>
 <body>
 <?php include '../components/admin_header.php'; ?>
 
 <section class="orders">
+
+
    <center><b h1 class="heading">Placed Orders</h1></b></center>
    
    <div class="search-form">
@@ -202,7 +225,9 @@ if(isset($_GET['delete'])){
          <thead>
             <tr>
                <th>Placed On</th>
+               <th>User ID</th>
                <th>Name</th>
+               <th>Email</th>
                <th>Number</th>
                <th>Address</th>
                <th>Total Products</th>
@@ -222,7 +247,9 @@ if(isset($_GET['delete'])){
                   while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
                      echo '<tr>';
                      echo '<td>' . $fetch_orders['placed_on'] . '</td>';
-                     echo '<td>' . $fetch_orders['name'] . '</td>';
+                     echo '<td>' . $fetch_orders['user_id'] . '</td>';
+                     echo '<td>' . $fetch_orders ['name'] .'</td>';
+                     echo '<td>' . $fetch_orders ['email'] .'</td>';
                      echo '<td>' . $fetch_orders['number'] . '</td>';
                      echo '<td>' . $fetch_orders['address'] . '</td>';
                      echo '<td>' . $fetch_orders['total_products'] . '</td>';

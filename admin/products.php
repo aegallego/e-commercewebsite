@@ -167,7 +167,39 @@ if(isset($_GET['delete'])){
 <section class="show-products">
 
    <h1 class="heading">products added</h1>
+   <ul class="breadcrumbs">
+    <li><a href="dashboard.php">Dashboard</a></li>
+    <li><a href="product_table.php">Product Table</a></li>
+    <li>Products</li>
+  </ul>
 
+<style>
+   .breadcrumbs {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   font-size: 1rem;
+   padding-left: 5%;
+   padding-bottom: 1%;
+ }
+ 
+ .breadcrumbs li {
+   display: inline;
+   font-size: 1.5rem;
+ }
+ 
+ .breadcrumbs li:not(:last-child):after {
+   content: "›";
+   margin: 0 5px;
+   color: #999;
+ }
+ 
+ .breadcrumbs li:last-child {
+   font-weight: bold;
+   color: #333;
+ }
+
+ </style>
    <div class="box-container">
 
    <?php

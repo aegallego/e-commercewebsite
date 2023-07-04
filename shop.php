@@ -151,7 +151,7 @@ include 'components/wishlist_cart.php';
 <section class="products">
 <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search_box" id="search_box" placeholder="Search products here..." maxlength="100" class="box" required>
+      <input type="text" name="search_box" id="search_box" placeholder="Search products" maxlength="100" class="box" required>
       <button type="submit" class="fas fa-search" name="search_btn"></button>
    </form>
 </section>

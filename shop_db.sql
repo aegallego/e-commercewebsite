@@ -15,10 +15,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for shop_db
-CREATE DATABASE IF NOT EXISTS `shop_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `shop_db`;
-
 -- Dumping structure for table shop_db.admins
 CREATE TABLE IF NOT EXISTS `admins` (
   `id` int(100) NOT NULL AUTO_INCREMENT,

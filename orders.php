@@ -61,10 +61,43 @@ if(isset($_SESSION['user_id'])){
 
 <section class="orders">
 
+<ul class="breadcrumbs">
+    <li><a href="home.php">Home</a></li>
+    <li><a href="order_status.php">My Purchases</a></li>
+    <li>Order History</li>
+  </ul>
+
+<style>
+   .breadcrumbs {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   font-size: 1rem;
+   padding-left: 5%;
+   padding-bottom: 1%;
+ }
+ 
+ .breadcrumbs li {
+   display: inline;
+   font-size: 1.5rem;
+ }
+ 
+ .breadcrumbs li:not(:last-child):after {
+   content: "›";
+   margin: 0 5px;
+   color: #999;
+ }
+ 
+ .breadcrumbs li:last-child {
+   font-weight: bold;
+   color: #333;
+ }
+
+ </style>
    <h1 class="heading"> ORDER HISTORY</h1>
    <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search_box" id="search_box" placeholder="Search orders here..." maxlength="100" class="box" required>
+      <input type="text" name="search_box" id="search_box" placeholder="Search orders" maxlength="100" class="box" required>
       <button type="submit" class="fas fa-search" name="search_btn"></button>
    </form>
 </section>

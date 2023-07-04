@@ -137,9 +137,9 @@ if(isset($_POST['send'])){
           if($user_id == ''){
               echo '<p class="empty">please login to see your orders</p>';
           }else{
-              $select_users = $conn->prepare("SELECT * FROM `users`");
-              $select_users->execute();
-              $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
+            $select_users = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+            $select_users->execute([$user_id]);
+            $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
 
               $select_messages = $conn->prepare("SELECT * FROM `messages` WHERE user_id = ?");
               $select_messages->execute([$user_id]);

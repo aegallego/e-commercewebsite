@@ -23,10 +23,10 @@ include 'components/wishlist_cart.php';
    <title>Category | Gemstar Cleaning Supplies International</title>
    <link rel="icon"  href="images/logo.png" type="image/x-icon"/>   
    <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -35,8 +35,43 @@ include 'components/wishlist_cart.php';
 
 <section class="products">
 
+
    <h1 class="heading">Category</h1>
 
+  <ul class="breadcrumbs">
+    <li><a href="home.php">Home</a></li>
+    <li><a href="shop.php">Shop</a></li>
+    <li>Category</li>
+  </ul>
+
+<style>
+   .breadcrumbs {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   font-size: 1rem;
+   padding-left: 5%;
+   padding-bottom: 1%;
+ }
+ 
+ .breadcrumbs li {
+   display: inline;
+   font-size: 1.5rem;
+ }
+ 
+ .breadcrumbs li:not(:last-child):after {
+   content: "›";
+   margin: 0 5px;
+   color: #999;
+ }
+ 
+ .breadcrumbs li:last-child {
+   font-weight: bold;
+   color: #333;
+ }
+
+ </style>
+ 
    <div class="box-container">
 
    <?php

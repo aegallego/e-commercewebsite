@@ -645,8 +645,8 @@ section{
 
 a.history{
    display: flex;
-   margin: 0 10%;
-   padding: 0 20px 5px 0;
+   margin: 0 5%;
+   padding: 0 20px 0 0;
    color: var(--main-color);
    font-size: 2rem;
    font-family: 'Poppins';
