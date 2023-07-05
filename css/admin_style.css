@@ -160,17 +160,16 @@ section{
    color:var(--black);
 }
 
-.empty{
-   padding:1.5rem;
+.empty {
+   padding: 1.5rem;
    background-color: var(--white);
    border: var(--border);
    box-shadow: var(--box-shadow);
    text-align: center;
-   color:var(--red);
-   border-radius: .5rem;
+   color: var(--red);
+   border-radius: 0.5rem;
    font-size: 2rem;
    text-transform: capitalize;
-   margin: 10rem 40% 0;
 }
 
 @keyframes fadeIn{
@@ -645,7 +644,7 @@ section{
 
 a.history{
    display: flex;
-   margin: 0 5%;
+   margin: 0 7%;
    padding: 0 20px 0 0;
    color: var(--main-color);
    font-size: 2rem;
@@ -654,6 +653,7 @@ a.history{
    width: 80%;
    font-weight:800;
    text-decoration: underline;
+   margin-top: 1%;
 }
 
 .table2{

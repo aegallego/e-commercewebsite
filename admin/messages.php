@@ -35,11 +35,12 @@ include '../components/admin_header.php';
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Messages | Gemstar Cleaning Supplies International</title>
-   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
+
+   <link rel="icon" href="../images/logo.png" type="image/x-icon"/>
+   <link rel="stylesheet" href="../css/admin_style.css">
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="../js/admin_script.js"></script>
    <script>
