@@ -48,6 +48,7 @@ if(isset($_POST['submit'])){
          $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password, flat, city, state, number) VALUES(?,?,?,?,?,?,?)");
          $insert_user->execute([$name, $email, $cpass, $flat, $city, $state, $number]);
          $message[] = 'registered successfully, login now please!';
+         header('location:user_login.php');
       }
    }
    }
@@ -97,7 +98,7 @@ if(isset($_POST['submit'])){
    </div>
    <br>
    <input type="text" name="name" required placeholder="Username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '','[!@#$%^&*_=+-]')">
-   <input type="email" name="email" required placeholder="Email" maxlength="30"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+   <input type="email"  name="email" required placeholder="Email" maxlength="30"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
    <input type="password" name="pass" required placeholder="Password" maxlength="20"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}" title="Must contain 8-12 characters with a number, symbol, and an upper and lower case" required class="box" oninput="this.value = this.value.replace(/\s/g, '')">
    <input type="password" name="cpass" required placeholder="Password" maxlength="20"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}" title="Must contain 8-12 characters with a number, symbol, and an upper and lower case" required class="box" oninput="this.value = this.value.replace(/\s/g, '')">
    <input type="text" name="flat" required placeholder="Home Address" maxlength="40"  class="box">
@@ -117,6 +118,41 @@ if(isset($_POST['submit'])){
 
 
 <script src="js/script.js"></script>
+<script>
+   const form = document.getElementById('hello');
+
+   const name = document.getElementsByName('name')[0];
+   const email = document.getElementsByName('email')[0];
+   const pass = document.getElementsByName('pass')[0];
+   const cpass = document.getElementsByName('cpass')[0];
+   const flat = document.getElementsByName('flat')[0];
+   const city = document.getElementsByName('city')[0];
+   const state = document.getElementsByName('state')[0];
+   const number = document.getElementsByName('number')[0];
+
+   form.onsubmit = (e) =>{
+      sessionStorage.setItem("name",name.value);
+      sessionStorage.setItem("email",email.value);
+      sessionStorage.setItem("pass",pass.value);
+      sessionStorage.setItem("cpass",cpass.value);
+      sessionStorage.setItem("flat",flat.value);
+      sessionStorage.setItem("city",city.value);
+      sessionStorage.setItem("state",state.value);
+      sessionStorage.setItem("number",number.value);
+   }
+
+   console.log(sessionStorage.getItem("name"))
+
+   name.value = (name.value == null)? null : sessionStorage.getItem("name");
+   email.value = (email.value == null)? null : sessionStorage.getItem("email");
+   pass.value = (pass.value == null)? null : sessionStorage.getItem("pass");
+   cpass.value = (cpass.value == null)? null : sessionStorage.getItem("cpass");
+   flat.value = (flat.value == null)? null : sessionStorage.getItem("flat");
+   city.value = (city.value == null)? null : sessionStorage.getItem("city");
+   state.value = (state.value == null)? null : sessionStorage.getItem("state");
+   number.value = (number.value == null)? null : sessionStorage.getItem("number");
+
+</script>
 
 </body>
 </html>
