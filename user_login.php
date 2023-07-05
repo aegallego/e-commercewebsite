@@ -97,8 +97,8 @@ if(isset($_POST['submit'])){
    <form action="" method="post" class="userlogin">
       <div class="card-0"><img src="./images/GEMSTAR-LOGO.png"></img></div>
       <h3 class="userlogin">Log in</h3>
-      <input type="text" name="email" required placeholder="Email" maxlength="30"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="pass" required placeholder="Password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="text" name="email" required placeholder="Email" maxlength="30"  class="box email" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="password" name="pass" required placeholder="Password" maxlength="20"  class="box pass" oninput="this.value = this.value.replace(/\s/g, '')">
       <p><input type="checkbox" name="remember_me" style="vertical-align: center;" >
       <label for="vehicle1" style="padding-bottom: 15px;">Remember me</label>
       <a style="float: right;" href="forget-password.php">Reset Password?</a>
@@ -113,5 +113,21 @@ if(isset($_POST['submit'])){
                <button type="submit" id="loginBtn" class="btn" style="width: 50%;">Order Now</button><br>       
 </div></div></div></div>                
 </section>
+
+<script>
+   const form = document.querySelectorAll(".userlogin")[0];
+   const email_input = document.querySelector(".email");
+   const pass_input = document.querySelector(".pass");
+
+   form.onsubmit = (e) =>{
+      sessionStorage.setItem("email_",email_input.value);
+      sessionStorage.setItem("pass_",pass_input.value);
+   }
+
+   email_input.value = (email_input.value == null)? null : sessionStorage.getItem("email_");
+   pass_input.value = (pass_input.value == null)? null : sessionStorage.getItem("pass_");
+
+
+</script>
 </body>
 </html>
