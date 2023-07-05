@@ -271,6 +271,9 @@ var swiper = new Swiper(".products-slider", {
 });
 
 </script>
+<script>
+      sessionStorage.clear();
+</script>
 
 </body>
 </html>
