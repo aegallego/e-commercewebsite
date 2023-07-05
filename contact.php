@@ -153,12 +153,12 @@ if(isset($_POST['send'])){
             <h3 class="title">Contact us</h3>
             <div class="input-container">
               <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
-              <label for="">Name</label>
+              <label for=""></label>
               <span>Name</span>
             </div>
             <div class="input-container">
               <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> " disabled/>
-              <label for="">Email</label>
+              <label for=""></label>
               <span>Email</span>
             </div>
             <div class="input-container">
