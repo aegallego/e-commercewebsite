@@ -79,10 +79,10 @@ include 'components/wishlist_cart.php';
      $select_productline = $conn->prepare("SELECT * FROM `productline`"); 
      $select_productline->execute();
      if($select_productline->rowCount() > 0){
-      while($fetch_productline = $select_productline->fetch(PDO::FETCH_ASSOC)){
+      while($fetch_productline = $select_productline->fetch(PDO::FETCH_ASSOC)){  
    ?>
 
-   <a href="category.php?category=<?= $fetch_productline['Productline_ID']; ?>" class="swiper-slide slide">
+   <a href="category.php?category=<?= $fetch_productline['ProductlineName']; ?>" class="swiper-slide slide">
       <h3><?= $fetch_productline['ProductlineName']; ?></h3>
    </a>
    <?php

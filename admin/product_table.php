@@ -14,8 +14,8 @@ if(isset($_POST['add_product'])){
 
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $Productline_ID = $_POST['Productline_ID'];
-   $Productline_ID = filter_var($Productline_ID, FILTER_SANITIZE_STRING);
+   $ProductlineName = $_POST['ProductlineName'];
+   $ProductlineName = filter_var($ProductlineName, FILTER_SANITIZE_STRING);
    $price = $_POST['price'];
    $price = filter_var($price, FILTER_SANITIZE_STRING);
    $product_stock = $_POST['product_stock']; 
@@ -49,8 +49,8 @@ if(isset($_POST['add_product'])){
       $message[] = 'product name already exist!';
    }else{
 
-      $insert_products = $conn->prepare("INSERT INTO `products`(Productline_ID, name, details, price, product_stock, image_01, image_02, image_03) VALUES(?,?,?,?,?,?,?,?)");
-      $insert_products->execute([$Productline_ID, $name, $details, $price, $product_stock, $image_01, $image_02, $image_03]);
+      $insert_products = $conn->prepare("INSERT INTO `products`(ProductlineName, name, details, price, product_stock, image_01, image_02, image_03) VALUES(?,?,?,?,?,?,?,?)");
+      $insert_products->execute([$ProductlineName, $name, $details, $price, $product_stock, $image_01, $image_02, $image_03]);
 
       if($insert_products){
          if($image_size_01 > 2000000 OR $image_size_02 > 2000000 OR $image_size_03 > 2000000){
@@ -300,7 +300,7 @@ if ($select_products->rowCount() > 0) {
 
       <tr>
          <td><?=$fetch_products['id']; ?></td>
-         <td><?=$fetch_products['Productline_ID']; ?></td> 
+         <td><?=$fetch_products['ProductlineName']; ?></td> 
          <td><?=$fetch_products['name']; ?></td>
          <td><?=$fetch_products['product_stock']; ?></td>
          <td>      
@@ -327,16 +327,16 @@ if ($select_products->rowCount() > 0) {
    <h1 class="heading">add product<span class="close" style="font-size: 40px;">&times;</span></h1>
       <div class="flex">
          <div class="inputBox">
-         <input type="hidden" name="Productline_ID">
+         <input type="hidden" name="ProductlineName">
          <span>product line (required)</span>
-         <select name="Productline_ID" id="sort-item" class="select" required>
+         <select name="ProductlineName" id="sort-item" class="select" required>
                <?php
                   $select_productline = $conn->prepare("SELECT * FROM `productline`"); 
                   $select_productline->execute();
                   if($select_productline->rowCount() > 0){
                      while($fetch_productline = $select_productline->fetch(PDO::FETCH_ASSOC)){
                   ?>
-               <option><?= $fetch_productline['Productline_ID']; ?></option>
+               <option><?= $fetch_productline['ProductlineName'] ?></option>
          <?php
    }
    }

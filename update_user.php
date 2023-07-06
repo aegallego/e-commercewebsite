@@ -57,6 +57,21 @@ if(isset($_POST['submit'])){
    
 }
 
+if(isset($_GET['delete'])){
+   $delete_id = $_GET['delete'];
+   $delete_user = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+   $delete_user->execute([$delete_id]);
+   $delete_orders = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
+   $delete_orders->execute([$delete_id]);
+   $delete_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
+   $delete_messages->execute([$delete_id]);
+   $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+   $delete_cart->execute([$delete_id]);
+   $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
+   $delete_wishlist->execute([$delete_id]);
+   header('location:home.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +80,7 @@ if(isset($_POST['submit'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>My Profile | Gemstar Cleaning Supplies International</title>
+   <title>My Profile</title>
    <link rel="icon"  href="images/logo.png" type="image/x-icon"/>
 
    <!-- font awesome cdn link  -->
@@ -76,12 +91,36 @@ if(isset($_POST['submit'])){
 
 </head>
 <body>
+
+<?php
+
+$select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+$select_orders->execute([$user_id]);
+$fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC);
+
+$select_accounts = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+$select_accounts->execute([$user_id]);
+$fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC);
+
+$test = $fetch_orders['order_tracking'];
+$test1 = $fetch_accounts['id'];
+
+?>
    
 <?php include 'components/user_header.php'; ?>
 
 <section class="form-container">
 
-   <form action="" method="post">
+   <?php
+      $select_accounts = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+      $select_accounts->execute([$user_id]);
+
+      if($select_accounts->rowCount() > 0){
+         while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+         $check = $fetch_profile['password'];
+   ?>
+
+<form action="" method="post">
       <h3>my profile</h3>
       <input type="hidden" name="prev_pass" value="<?= $fetch_profile["password"]; ?>">
       <input type="text" name="name" value="<?= $fetch_profile["name"]; ?>" placeholder="enter your username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '','[!@#$%^&*_=+-]')">
@@ -96,8 +135,40 @@ if(isset($_POST['submit'])){
       <input type="password" name="new_pass" placeholder="New Password" maxlength="20"  class="box"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}" title="Must contain 8-12 characters with a number, symbol, and an upper and lower case"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass" placeholder="Confirm New Password" maxlength="20"  class="box"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}" title="Must contain 8-12 characters with a number, symbol, and an upper and lower case"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="submit" value="Update Now" class="btn" name="submit">
-   </form>
+      <!-- <a href="update_user.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account? the user related information will also be delete!')" class="delete-btn" <?= ($fetch_orders['payment_status'] != "Completed")?'':'disabled';?>>delete account</a> -->
+   <?php 
+         
 
+         if($test != "Completed"){
+            
+            echo "<p style='color:red;'>NOTE: You still have pending orders. Unavailable to delete account</p>";
+            
+         }else{
+            echo 
+            '
+            <a href="update_user.php?delete=', $test1;
+            echo
+            '
+            " onclick="return confirm
+            ';
+            echo
+            "
+            ('delete this account? the user related information will also be deleted!')
+            ";
+            echo
+            '
+            " class="delete-btn">delete account</a>
+            ';
+         }
+         
+         ?>
+            <?php
+                  }
+               }else{
+                  echo '<p class="empty">no accounts available!</p>';
+               }
+            ?>
+         </form>
 </section>
 
 
