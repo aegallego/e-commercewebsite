@@ -502,6 +502,11 @@ align-content: center;
   color:var(--black);
 }
 
+.header .flex .logo img{
+  height: 100px; 
+  width: 200px;
+}
+
 .header .flex .logo span{
   color:var(--main-color);
 }
@@ -522,11 +527,11 @@ align-content: center;
   margin-left: 1rem;
   font-size: 2.5rem;
   cursor: pointer;
-  color:var(--black);
+  color:var(--main-color);
 }
 
 .header .flex .icons > *:hover{
-  color:var(--main-color);
+  color:var(--lightblue);
 }
 
 .header .flex .icons a span{
@@ -720,6 +725,15 @@ align-content: center;
        display: block;
        margin:2rem;
     }
+
+    .header .flex .logo img{
+      height: 70%;
+      width: 70%;
+   }
+
+   .header .flex a.logo{
+      width: 40%;
+   }
  
     .home-bg .home .slide .content{
        text-align: center;

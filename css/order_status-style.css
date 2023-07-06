@@ -113,10 +113,15 @@ a.history:hover{
     justify-content: space-between;
     position: relative;
  }
- 
+
  .header .flex .logo{
-    font-size: 2.5rem;
-    color:var(--black);
+   font-size: 2.5rem;
+   color:var(--black);
+ }
+ 
+ .header .flex .logo img{
+    height: 100px; 
+    width: 200px;
  }
  
  .header .flex .logo span{
@@ -501,7 +506,13 @@ section{
    gap:1rem;
 }
 
+@media (max-width:991px){
 
+   html{
+      font-size: 55%;
+   }
+
+}
  
 
  @media (max-width:768px){
@@ -519,6 +530,20 @@ section{
        transition: .2s linear;
        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
+
+    .header .flex .logo img{
+      height: 70%;
+      width: 70%;
+   }
+
+   .header .flex a.logo{
+      width: 40%;
+   }
+
+   .header .flex .icons > *{
+      margin-left: 1rem;
+      font-size: 2.5rem;
+   }
  
     .header .flex .navbar.active{
        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);

@@ -346,6 +346,15 @@ textarea {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
  }
 
+ .header .flex .logo img{
+   height: 70%;
+   width: 70%;
+}
+
+.header .flex a.logo{
+   width: 40%;
+}
+
  .header .flex .navbar a{
     display: block;
     margin:2rem;

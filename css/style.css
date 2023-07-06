@@ -693,6 +693,11 @@ background: var(--lightblue);
    color:var(--black);
 }
 
+.header .flex .logo img{
+   height: 100px; 
+   width: 200px;
+}
+
 .header .flex .logo span{
    color:var(--main-color);
 }
@@ -1725,6 +1730,15 @@ background: var(--lightblue);
 
    .header .flex .navbar.active{
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+   }
+
+   .header .flex .logo img{
+      height: 70%;
+      width: 70%;
+   }
+
+   .header .flex a.logo{
+      width: 40%;
    }
 
    .header .flex .navbar a{
