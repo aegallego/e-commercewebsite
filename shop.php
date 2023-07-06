@@ -142,8 +142,9 @@ include 'components/wishlist_cart.php';
    </a> -->
 
    </div>
-
-   <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
 
    </div>
 
@@ -218,6 +219,10 @@ var swiper = new Swiper(".home-slider", {
       el: ".swiper-pagination",
       clickable:true,
    },
+   navigation:{
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+   },
    breakpoints: {
       0: {
          slidesPerView: 2,
@@ -234,25 +239,25 @@ var swiper = new Swiper(".home-slider", {
    },
 });
 
-var swiper = new Swiper(".products-slider", {
-   loop:true,
-   spaceBetween: 20,
-   pagination: {
-      el: ".swiper-pagination",
-      clickable:true,
-   },
-   breakpoints: {
-      550: {
-        slidesPerView: 2,
-      },
-      768: {
-        slidesPerView: 2,
-      },
-      1024: {
-        slidesPerView: 3,
-      },
-   },
-});
+// var swiper = new Swiper(".products-slider", {
+//    loop:true,
+//    spaceBetween: 20,
+//    pagination: {
+//       el: ".swiper-pagination",
+//       clickable:true,
+//    },
+//    breakpoints: {
+//       550: {
+//         slidesPerView: 2,
+//       },
+//       768: {
+//         slidesPerView: 2,
+//       },
+//       1024: {
+//         slidesPerView: 3,
+//       },
+//    },
+// });
 </script>
 </body>
 </html>
