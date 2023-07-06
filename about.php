@@ -108,8 +108,9 @@ if(isset($_SESSION['user_id'])){
 </div>
    </div>
 
-   <div class="swiper-pagination"></div>
-
+   <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
    </div>
 
 </section>
@@ -128,6 +129,10 @@ var swiper = new Swiper(".reviews-slider", {
    pagination: {
       el: ".swiper-pagination",
       clickable:true,
+   },
+   navigation:{
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
    },
    breakpoints: {
       0: {
