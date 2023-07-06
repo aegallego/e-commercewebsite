@@ -70,7 +70,7 @@ main{
 }
 
 h2{
-   color: #4B92FF;
+  color: #4B92FF;
   font-size: 5em;
   margin-top: 3em;
   margin-bottom: 2rem;
@@ -1715,6 +1715,14 @@ background: var(--lightblue);
       font-size: 55%;
    }
 
+   .sec1{
+      font-size: 75%;
+   }
+
+   .sec1 h2{
+      margin-top: 3%;
+   }
+
 }
 
 @media (max-width:768px){
@@ -1758,6 +1766,15 @@ background: var(--lightblue);
    .home-bg .home .slide .content h3{
       font-size: 3rem;
    }
+
+   .sec1{
+      font-size: 50%;
+   }
+
+   .sec1 h2{
+      margin-top: 1em;
+   }
+
 
 }
 
