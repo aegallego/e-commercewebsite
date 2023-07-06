@@ -80,6 +80,10 @@ include 'components/wishlist_cart.php';
    <table style="width: 100%;
   border-collapse: collapse;">
       <tr>
+         <td><p>order id </p></td>
+         <td><span> <?= $fetch_orders['id']; ?></span></td>
+      </tr>
+      <tr>
          <td><p>placed on </p></td>
          <td><span> <?= $fetch_orders['placed_on']; ?></span></td>
       </tr>
@@ -158,6 +162,10 @@ include 'components/wishlist_cart.php';
     </center>
    <table style="width: 100%;
   border-collapse: collapse;">
+      <tr>
+         <td><p>order id </p></td>
+         <td><span> <?= $fetch_orders['id']; ?></span></td>
+      </tr>
       <tr>
          <td><p>placed on </p></td>
          <td><span> <?= $fetch_orders['placed_on']; ?></span></td>
@@ -238,8 +246,8 @@ include 'components/wishlist_cart.php';
    <table style="width: 100%;
   border-collapse: collapse;">
       <tr>
-         <td><p>placed on </p></td>
-         <td><span> <?= $fetch_orders['placed_on']; ?></span></td>
+         <td><p>order id </p></td>
+         <td><span> <?= $fetch_orders['id']; ?></span></td>
       </tr>
       <tr>
          <td><p>name </p></td>
