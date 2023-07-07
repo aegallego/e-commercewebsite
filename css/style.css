@@ -1064,6 +1064,23 @@ background: var(--lightblue);
    line-height: 2;
 }  
 
+.quick-view form .row .image-container .stocks{
+   position: absolute;
+   top:29rem;
+   right: 97rem;
+   height: 5rem;
+   line-height: 4.2rem;
+   font-size: 2rem;
+   background-color: var(--black);
+   border:var(--border);
+   border-radius: .5rem;
+   text-align: left;
+   color:var(--light-bg);
+   cursor: pointer;
+   transition: .2s linear;
+   padding: 0 1rem;
+}
+
 /* CARD PRODUCT CATALOGS */
 
 .products .box-container{
