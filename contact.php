@@ -73,25 +73,11 @@ if(isset($_POST['send'])){
    
 <?php include 'components/user_header.php'; ?>
 
-<!-- <section class="contact">
-
-   <form action="" method="post">
-      <h3>get in touch</h3>
-      <input type="text" name="name" placeholder="Enter your name" required maxlength="20" class="box">
-      <input type="email" name="email" placeholder="Enter your email" required maxlength="50" class="box">
-      <input type="tel" name="number" placeholder="Enter your number" required maxlength="11" class ="box">
-      <textarea name="msg" class="box" placeholder="Enter your message" cols="30" rows="10"></textarea>
-      <input type="submit" value="send message" name="send" class="btn">
-   </form>
-
-</section> -->
 <section class="contact">
-
-<section class="contact">
-<h1 class="heading">contact us</h1>
-<span class="big-circle"></span>
 <img src="img/shape.png" class="square" alt="" />
 <div class="container">
+<span class="big-circle"></span>
+<img src="img/shape.png" class="square" alt="" />
       <div class="form">
         <div class="contact-info">
           <h3 class="title">Let's get in touch</h3>
@@ -200,6 +186,6 @@ if(isset($_POST['send'])){
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
-</section>
+
 </body>
 </html>
