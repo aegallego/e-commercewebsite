@@ -70,14 +70,12 @@ if(isset($_POST['send'])){
 
 </head>
 <body>
-   
 <?php include 'components/user_header.php'; ?>
-
-<section class="contact">
 <img src="img/shape.png" class="square" alt="" />
+<section class="contact">
+<h1 class="heading">contact us</h1>
 <div class="container">
 <span class="big-circle"></span>
-<img src="img/shape.png" class="square" alt="" />
       <div class="form">
         <div class="contact-info">
           <h3 class="title">Let's get in touch</h3>
