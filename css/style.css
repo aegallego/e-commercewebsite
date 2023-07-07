@@ -1218,6 +1218,7 @@ background: var(--lightblue);
    align-items: center;
    flex-wrap: wrap;
    gap:1rem;
+   margin-top: -80px;
 }
 
 .about .row .image{
@@ -1240,7 +1241,7 @@ background: var(--lightblue);
 }
 
 .about .row .content h3{
-   font-size: 5rem;
+   font-size: 3rem;
    color:var(--main-color);
 }
 

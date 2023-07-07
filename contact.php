@@ -85,6 +85,9 @@ if(isset($_POST['send'])){
    </form>
 
 </section> -->
+<section class="contact">
+
+<h1 class="heading">contact us</h1>
 
 <div class="container">
       <span class="big-circle"></span>
@@ -150,7 +153,6 @@ if(isset($_POST['send'])){
           <span class="circle two"></span>
 
           <form action="" method="POST">
-            <h3 class="title">Contact us</h3>
             <div class="input-container">
               <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
               <label for=""></label>
@@ -198,6 +200,6 @@ if(isset($_POST['send'])){
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
-
+</section>
 </body>
 </html>

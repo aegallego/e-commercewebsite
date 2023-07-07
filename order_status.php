@@ -33,6 +33,7 @@ include 'components/wishlist_cart.php';
 <body>
    
 <section class="order-status">
+<h1 class="heading">order status</h1>
 <div class="container">
       <h3 class="purchase">My Purchases</h3>
       <a class="history" href="orders.php">View Purchase History</a>

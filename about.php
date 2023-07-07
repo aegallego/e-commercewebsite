@@ -35,15 +35,14 @@ if(isset($_SESSION['user_id'])){
 <?php include 'components/user_header.php'; ?>
 
 <section class="about">
-
+<h1 class="heading">about us</h1>
    <div class="row">
-
       <div class="image">
          <img src="images/about-img.svg" alt="">
       </div>
 
       <div class="content">
-         <h3>About Gemstar</h3>
+         <h3 style="font-style: italic;">Your One Stop Shop For Cleaning Needs... </h3>
          <p>GEMSTAR CLEANING SUPPLIES INTERNATIONAL was established & registered on January 2011 that provides cleaning and hygiene products. We have more than a decade of experience in marketing, business & product development. We support sales of commercial and industrial cleaning chemicals.
            <br> The mission of GEMSTAR. is to create clean and healthy environment by bearing complete line of cleaning products from custodial, chemical to equipment. Also, to become your trusted cleaning supplier.
             <br>A demand was seen to help customers simplify sourcing products related to cleaning materials. With this act we further reduce cost of time and efforts by simply talking with one supplier that can give competitive prices and also provides solutions on problem related to cleaning.</p>
