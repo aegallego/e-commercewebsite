@@ -87,11 +87,11 @@ if(isset($_POST['send'])){
 </section> -->
 <section class="contact">
 
+<section class="contact">
 <h1 class="heading">contact us</h1>
-
+<span class="big-circle"></span>
+<img src="img/shape.png" class="square" alt="" />
 <div class="container">
-      <span class="big-circle"></span>
-      <img src="img/shape.png" class="square" alt="" />
       <div class="form">
         <div class="contact-info">
           <h3 class="title">Let's get in touch</h3>

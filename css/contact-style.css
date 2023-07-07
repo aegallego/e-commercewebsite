@@ -3,17 +3,19 @@
 
 :root{
   --main-color:#142d55;
+  --black:#444;
   --lightblue:#4b92ff;
   --aquamarine:#57e3ff;
   --blue: #0856cf;
-  --black:#444;
   --white:#fff;
-  --light-color:#777;
+  --light-color:#B7E3FF;
   --light-bg:#f5f5f5;
   --orange:#f39c12;
   --red: #ff6969;
-  --border:.2rem solid var(--black);
+  /* --border:.2rem solid var(--black); */
   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+  --modal-duration: 1s;
+  --modal-color: #428bca;
 }
 
 *{
@@ -45,6 +47,10 @@
 html{
   font-size: 62.5%;
   overflow-x: hidden;
+}
+
+body{
+  background-color: var(--light-color);
 }
 
 body,
@@ -94,10 +100,11 @@ h2{
 }
 .heading{
   font-size: 4rem;
-  color:var(--white);
+  color:var(--main-color);
   margin-bottom: 2rem;
   text-align: center;
   text-transform: uppercase;
+  background-color: transparent;
 }
 
 .btn,
@@ -196,7 +203,7 @@ h2{
   width: 100%;
   max-height: 100vh;
   padding: 2rem;
-  background-color: #B7E3FF;
+  background-color: transparent;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -459,6 +466,7 @@ align-content: center;
   bottom: 50%;
   right: 50%;
   transform: translate(-40%, 38%);
+
 }
 
 .big-circle:after {
