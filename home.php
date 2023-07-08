@@ -30,9 +30,10 @@ include 'components/wishlist_cart.php';
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+
 </head>
 <body>
-   
+
 <?php include 'components/user_header.php'; ?>
 <div class="home-bg">
 <main style="text-align: center;">
@@ -213,7 +214,6 @@ include 'components/wishlist_cart.php';
 
 
 <?php include 'components/footer.php'; ?>
-
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 <script src="js/script.js"></script>
