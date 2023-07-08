@@ -293,6 +293,10 @@ form {
   transition: 0.3s;
 }
 
+.read{
+  pointer-events: none;
+}
+
 textarea.input {
   padding: 0.8rem 1.2rem;
   min-height: 150px;
