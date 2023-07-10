@@ -1,7 +1,13 @@
 <script>
 function timeMsg() {
-var t=setTimeout("myFunction()",1000);
+   var t=setTimeout("myFunction()",1000);
 }
+</script>
+
+<script>
+   function call_checkout() {
+      var t=setTimeout("paymongo_checkout",1000);
+   }
 </script>
 
 <script>
@@ -28,6 +34,39 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
    header('location:user_login.php');
 };
+
+
+function request_checkout($item,$price,$remarks){
+   $url = 'https://gemsstar.pythonanywhere.com/item_checkout';
+
+    //JSON data(not exact, but will be compiled to JSON) file:
+    //add as many data as you need (according to prosperworks doc):
+    $data = array(
+            'amount' => (int)$price,
+            'items' => $item,
+            'extra_remarks' => $remarks
+               );
+
+    //sending request (according to prosperworks documentation):
+    // use key 'http' even if you send the request to https://...
+    $options = array(
+        'http' => array(
+            'header'  => "Content-Type: application/json\r\n",
+            'method'  => 'POST',
+            'content' => json_encode($data)
+        )
+    );
+
+    //engine:
+   $context  = stream_context_create($options);
+   $result = file_get_contents($url, false, $context);
+   if ($result === FALSE) { /* Handle error */ }
+   //compiling to JSON (as wrote above):
+   $resultData = json_decode($result, TRUE);
+   echo "<script>window.open('".$resultData."')</script>";
+}
+
+
 
 if(isset($_POST['order'])){
 
@@ -82,14 +121,40 @@ if(isset($_POST['order'])){
 
       $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
       $delete_cart->execute([$user_id]);
-      echo '<script>timeMsg();</script>';
+
+      if($method != 'E-Wallet'){
+         echo '<script>timeMsg();</script>';
+      }else{
+         request_checkout("sample_items",$total_price."00",$request);
+      }
+
+      
    }else{
       $message[] = 'your cart is empty';
    }
    
    }
 
+
+function genrate_ref_number($numDigits) {
+  $numbers = range(0, 9);
+  shuffle($numbers);
+  $randNumber = '';
+ 
+  for ($i = 0; $i < $numDigits; $i++) {
+    $randNumber .= $numbers[$i];
+  }
+ 
+  return $randNumber;
+}
+
 ?>
+
+<script>
+   function paymongo_checkout(){
+      alert('hello');
+   }
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +196,7 @@ if(isset($_POST['order'])){
 
 <section class="checkout-orders">
 
-   <form action="" method="POST">
+   <form id="order-form" action="" method="POST">
 
    <h3>your orders</h3>
 
@@ -199,7 +264,7 @@ if(isset($_POST['order'])){
             <span>Payment Method:</span>
             <select name="method" class="box" required>
                <option value="cash on delivery">cash on delivery</option>
-               <option value="GCash Payment">gcash</option>
+               <option value="E-Wallet">E-Wallet</option>
                <!-- <option value="paytm">paytm</option>
                <option value="paypal">paypal</option> --> -->
             </select>
@@ -237,16 +302,9 @@ if(isset($_POST['order'])){
                   <option value="Third-party">Third-party</option>
                </select>
          </div>
-         <div class="inputBox" style="width:100%;">
-         <center id="top">
-         <span>GCASH QR :</span>
-            <div class="logos"></div>
-         <p class="box" style="width: 10%; color:grey; font-style: italic;">GEMSTAR 09999999999</p>
-         </center>
-         </div>
          <div class="inputBox">
-            <span>Reference No. (For GCASH Payments only and will be sent through SMS) :</span>
-            <input type="telephone" name="ref_num" placeholder="e.g. 123456789" class="box" maxlength="20">
+            <span>Reference No. :</span>
+            <input type="telephone" name="ref_num" value="<?php echo genrate_ref_number(5)."-".genrate_ref_number(3)."-".genrate_ref_number(5)  ?>"  class="box" maxlength="20" readonly>
          </div>
          <?php
       }
@@ -257,30 +315,18 @@ if(isset($_POST['order'])){
 
       <input type="submit" id="modal-btn" name="order" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>" value="place order"> 
 
-      <!-- <div id="my-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Modal Header</h2>
-      </div>
-      <div class="modal-body">
-        <p>This is my modal</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla repellendus nisi, sunt consectetur ipsa velit
-          repudiandae aperiam modi quisquam nihil nam asperiores doloremque mollitia dolor deleniti quibusdam nemo
-          commodi ab.</p>
-      </div>
-      <div class="modal-footer">
-        <h3>Modal Footer</h3>
-      </div>
-    </div>
-  </div> -->
-
    </form>
 
 </section>
 
 
 <?php include 'components/footer.php'; ?>
+
+<script>
+
+
+</script>
+
 <script src="js/script.js"></script>
 
 

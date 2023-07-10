@@ -18,6 +18,9 @@
    --modal-color: #428bca;
 }
 
+
+
+
 *{
    font-family: 'Poppins', sans-serif;
    margin:0; padding:0;
@@ -671,6 +674,8 @@ background: var(--lightblue);
       transform: translateY(1rem);
    }
 }
+
+
 
 .header{
    position: sticky;

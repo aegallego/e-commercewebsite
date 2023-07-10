@@ -211,19 +211,19 @@ if(isset($_POST['send'])){
           <span class="circle two"></span>
 
           <form action="" method="POST">
-            <div class="input-container">
-              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
+          <div class="input-container read">
+              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " />
               <label for=""></label>
               <span>Name</span>
             </div>
-            <div class="input-container">
-              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> " disabled/>
+            <div class="input-container read">
+              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> "/>
               <label for=""></label>
               <span>Email</span>
             </div>
-            <div class="input-container">
-              <input type="tel" name="number" class="input"  required maxlength ="11"/>
-              <label for="">Number</label>
+            <div class="input-container read">
+              <input type="tel" name="number" class="input"  required maxlength ="11"  value="<?=$fetch_users['number']?>"/>
+              <label for=""></label>
               <span>Number</span>
             </div>
             <div class="input-container textarea">
