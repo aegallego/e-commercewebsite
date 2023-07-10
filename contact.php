@@ -247,12 +247,167 @@ if(isset($_POST['send'])){
       </div>
     </div>
 
+<!-- FAQs -->
+<style>
+.containerFluid {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.containerFluid h2 {
+  color: #142D55;
+  position: relative;
+  width: 24rem;
+}
+
+.containerFluid h2::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  right: 12px;
+  width: 67px;
+  height: 2px;
+  background-color: hotpink;
+}
+
+.accordion {
+  width: 100%;
+  padding: 0 5px;
+  border: 2px solid #6db5ff;
+  cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.accordion .icon {
+  margin: 0 10px 0 0;
+  width: 30px;
+  height: 30px;
+  background: url(https://raw.githubusercontent.com/Tusar78/responsive-accordion/main/images/toggle-bg.png)
+    no-repeat 8px 7px #6db5ff;
+  border-radius: 50%;
+  float: left;
+  transition: all 0.5s ease-in;
+}
+
+.accordion h5 {
+  font-size: 22px;
+  margin: 0;
+  padding: 3px 0 0 0;
+  font-weight: normal;
+  color: #1f5c9a;
+}
+
+.active {
+  background-color: #6db5ff;
+  color: #fff;
+}
+
+.active .icon {
+  background: url(https://.githubusercontent.com/Tusar78/responsive-accordion/main/images/toggle-bg.png)
+    no-repeat 8px -25px #fff;
+}
+
+.panel {
+  padding: 0 15px;
+  border-left: 1px solid #6db5ff;
+  margin-left: 25px;
+  font-size: 14px;
+  text-align: justify;
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.3s ease-in;
+}
+</style>
+
+    <div class="containerFluid">
+  <h2>Frequently Asked Questions(FAQs)</h2>
+  <div class="accordion">
+    <div class="icon"></div>
+    <h5>What is Lorem Ipsum?</h5>
+  </div>
+  <div class="panel">
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged.
+    </p>
+  </div>
+
+  <div class="accordion">
+    <div class="icon"></div>
+    <h5>Why do we use it?</h5>
+  </div>
+  <div class="panel">
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged.
+    </p>
+  </div>
+
+  <div class="accordion">
+    <div class="icon"></div>
+    <h5>Where does it come from?</h5>
+  </div>
+  <div class="panel">
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged.
+    </p>
+  </div>
+
+  <div class="accordion">
+    <div class="icon"></div>
+    <h5>Why do we use it?</h5>
+  </div>
+  <div class="panel">
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged.
+    </p>
+  </div>
+</div>
 
 
 <?php include 'components/footer.php'; ?>
 
 <script>
-
+// FAQs
+var acc = document.getElementsByClassName("accordion");
+var i;
+var len = acc.length;
+for (i = 0; i < len; i++) {
+  acc[i].addEventListener("click", function () {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+//FAQs
+</script>
+<script>
   let response = "<?php echo $fetch_messages['message_status'] ?>";
   
   (response !== "") ? document.querySelector('.admin-res').style.display = "flex" : false
@@ -269,6 +424,7 @@ if(isset($_POST['send'])){
         window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
 
 </body>
 </html>

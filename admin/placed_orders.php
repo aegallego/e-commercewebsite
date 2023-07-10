@@ -55,22 +55,120 @@ if(isset($_GET['delete'])){
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Orders | Gemstar Cleaning Supplies International</title>
-   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>
-
-   <link rel="stylesheet" href="../css/admin_style.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
+   <link rel="icon"  href="../images/logo.png" type="image/x-icon"/>   
+   
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">   
+
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
+  
+   
+   
+   
+
 
    
 <style>
+
+.custom-container {
+   width: 97vw ;
+   margin-top: 2%;
+   display: block;
+   overflow: auto;
+   align-items: center;
+   text-align: center;
+   border: 1px solid black;
+   border-radius: 10px;
+   border-collapse: collapse;
+   background-color: var(--white);
+}
+
+
+/* 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-body{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+}
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--bs-modal-header-padding);
+    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+    border-top-left-radius: var(--bs-modal-inner-border-radius);
+    border-top-right-radius: var(--bs-modal-inner-border-radius);
+}
+.modal.show .modal-dialog {
+    transform: none;
+}
+.modal.fade .modal-dialog {
+    transition: transform .3s ease-out;
+    transform: translate(0,-50px);
+}
+
+.modal-dialog {
+    max-width: var(--bs-modal-width);
+    margin-right: auto;
+    margin-left: auto;
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: var(--bs-modal-margin);
+    pointer-events: none;
+} 
+.modal {
+  z-index: 1050;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}
+*/
 .btn{
 display: flex;
-width: 100%;
+width: 100%; 
 margin-top: 1.2rem;
 border-radius: .5rem;
 padding: 1rem 3rem;
@@ -138,6 +236,7 @@ a{
    text-decoration: none;
 }
 
+
 .search-form form button:hover{
    background-color: var(--black);
 }
@@ -145,11 +244,10 @@ a{
    font-style: 'Poppins';
    font-size:1.5em;
    font-weight: bolder;
-   width: 10%;
 }
 .sorting_1{
    font-style: 'Poppins';
-   font-size:1rem;
+   font-size:1.5rem;
    justify-content: center;
    text-align: center;
 }
@@ -158,24 +256,10 @@ td{
    font-size:1.5rem;
    justify-content: center;
    text-align: center;
-   width: 5%;
 }
 
 a.logo{
    text-decoration: none;
-}
-
-.container {
-   margin-top: 2%;
-   width: 97vw;
-   display: block;
-   overflow: auto;
-   align-items: center;
-   text-align: center;
-   border: 1px solid black;
-   border-radius: 10px;
-   border-collapse: collapse;
-   background-color: white;
 }
  .search-form form button:hover {
    background-color: var(--black);
@@ -193,12 +277,6 @@ a.logo{
 #ordersTable tr:nth-child(1) {
     background-color: #57e3ff!important;
     ;
-}.modal {
-  z-index: 1050; /* Adjust the value if needed */
-}
-
-.modal-backdrop {
-  z-index: 1040; /* Adjust the value if needed */
 }
 
 
@@ -220,17 +298,17 @@ a.logo{
    </form>
 </div>
 
-   <div class="container">
+   <div class="custom-container">
       <table id="ordersTable">
          <thead>
             <tr>
                <th>Placed On</th>
-               <th>User ID</th>
+               <th>ID</th>
                <th>Name</th>
                <th>Email</th>
                <th>Number</th>
                <th>Address</th>
-               <th>Total Products</th>
+               <th>Products</th>
                <th>Total Price</th>
                <th>Payment Method</th>
                <th>Payment Status</th>
@@ -347,7 +425,7 @@ $(document).ready(function() {
 });
 
        // Add ng filter dropdown sa header
-       var paymentStatusColumn = table.column(7);
+       var paymentStatusColumn = table.column(9);
     var paymentStatusData = paymentStatusColumn.data().unique();
     var paymentStatusFilter = $('<select class="filter-dropdown"><option value="">All</option></select>');
 
