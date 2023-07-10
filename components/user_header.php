@@ -11,6 +11,8 @@
    }
 ?>
 
+<link rel="stylesheet" href="css/notif.css">
+
 <header class="header">
 
    <section class="flex">
@@ -38,6 +40,32 @@
             $total_cart_counts = $count_cart_items->rowCount();
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
+         <div class="dropdown">
+            <a class="dropbtn" href="#">
+            <?php
+               $select_messages = $conn->prepare("SELECT * FROM `messages` WHERE user_id = ?");
+               $select_messages->execute([$user_id]);
+               $fetch_messages = $select_messages->fetch(PDO::FETCH_ASSOC);
+               $notif_messages = array();
+
+               if ($fetch_messages != false){
+                  if($fetch_messages['message_status'] != ''){
+                     array_push($notif_messages, $fetch_messages);
+                  }
+               }
+
+            ?>
+            <a href="#"><i class="fas fa-bell"></i><span>(<?= sizeof($notif_messages); ?>)</span></a>
+            <div class="dropdown-content">
+            <?php if (sizeof($notif_messages) != 0) {?>
+               <a href="contact.php" class="notif-item">
+                  Admin: <?=$fetch_messages['message_status'] ?>
+                  <br>
+                  <i><?=$fetch_messages['dates'] ?></i>
+               </a>
+            <?php }?>
+            </div>
+         </div>
          <a href="wishlist.php"><i class="fas fa-heart"></i><span>(<?= $total_wishlist_counts; ?>)</span></a>
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_counts; ?>)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
