@@ -628,6 +628,8 @@ align-content: center;
 .footer .credit span{
   color:var(--light-bg);
 }
+/* FAQs */
+
 
 /* responsiveness  */
 @media (max-width: 850px) {
