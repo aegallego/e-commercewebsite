@@ -1,3 +1,16 @@
+<script>
+function timeMsg() {
+var t=setTimeout("myFunction1()",500);
+}
+</script>
+
+<script>
+function myFunction1() {
+  alert("Feedback Sent!");
+};
+</script>
+
+
 <?php
 
 include 'components/connect.php';
@@ -9,6 +22,23 @@ if(isset($_SESSION['user_id'])){
 }else{
    $user_id = '';
 };
+
+
+$occurance_rate = rand(10,200);
+
+if(isset($_POST['send-btn'])){
+   $rating = $_POST['rating'];
+
+   $select_users = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+   $select_users->execute([$user_id]);
+   $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
+
+   $select_messages = $conn->prepare("INSERT INTO `feedback`(`user_id`, `user_email`, `rating`) VALUES (?,?,?)");
+   $select_messages->execute([$user_id,$fetch_users['email'],$rating]);
+
+   echo "<script>timeMsg();</script>";
+ }
+
 
 include 'components/wishlist_cart.php';
 
@@ -25,13 +55,108 @@ include 'components/wishlist_cart.php';
    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    
    <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
+   <style>
+      .feedback{
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.605);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        z-index: 1001;
+        padding: 1rem 1rem;
+      }
+      .feedback .container{
+        background-color: white;
+        border-radius: 25px;
+        display: inherit;
+        flex-direction: inherit;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+        width: 40%;
+      }
+      .feedback .container hr{
+        height: 2px;
+        width: 80%;
+        background-color: black;
+
+      }
+      .feedback .container h3{
+        align-self: flex-start;
+        margin-left: 7rem;
+        font-weight: light;
+
+      }
+      .stars{
+        display: inherit;
+        flex-direction: row;
+        padding: 1rem .5rem;
+      }
+      .fa-star{
+        cursor: pointer;
+        color: grey;
+        margin-left: .5rem;
+      }
+      .checked{
+        color: orange;
+      }
+      .unchecked{
+        color: grey;
+      }
+      .feedback .container button{
+        padding: 1rem 3rem;
+        border-radius: 8px;
+        margin-top: 2rem;
+        cursor: pointer;
+        font-weight: bold;
+        background-color: #4b92ff;
+        color: white;
+      }
+      .feedback .container button:hover{
+        background-color: #2e61ae;
+      }
+      
+      .feedback-btn{
+         display: inherit;
+         flex-direction: row;
+         column-gap: .5rem;
+      }
+
+      .rating{
+         visibility: hidden;
+      }
+   </style>
+
 </head>
 <body>
+
+<div class="feedback">
+  <form method="POST" class="container">
+     <img width="300" height="300" src="images/feedback.png">
+     <h1>Give Us A Feedback!</h1>
+     <hr>   
+     <div class="stars">
+         <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
+         <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
+         <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
+         <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
+         <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
+      </div>
+      <div class="feedback-btn">
+         <button type="submit" name="send-btn" class="send-btn">Send</button>
+         <button  name="recieved-btn" class="recieved-btn">Remind Later</button>
+      </div>
+      <input type="number" name="rating" class="rating" value="">
+  </form>
+</div>
 
 <?php include 'components/user_header.php'; ?>
 <div class="home-bg">
@@ -205,13 +330,6 @@ include 'components/wishlist_cart.php';
 </section>
 
 
-
-
-
-
-
-
-
 <?php include 'components/footer.php'; ?>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
@@ -219,37 +337,28 @@ include 'components/wishlist_cart.php';
 
 <script>
 
-// var swiper = new Swiper(".home-slider", {
-//    loop:true,
-//    spaceBetween: 20,
-//    pagination: {
-//       el: ".swiper-pagination",
-//       clickable:true,
-//     },
-// });
+   const feedback_apperance_rate = "<?php echo $occurance_rate ?>";
+   (parseInt(feedback_apperance_rate)  == 12) ? document.querySelector('.feedback').style.display = "flex" : false
+   console.log(feedback_apperance_rate);
+   const stars = document.querySelectorAll('.stars-feed');
 
-//  var swiper = new Swiper(".category-slider", {
-//    loop:true,
-//    spaceBetween: 20,
-//    pagination: {
-//       el: ".swiper-pagination",
-//       clickable:true,
-//    },
-//    breakpoints: {
-//       0: {
-//          slidesPerView: 2,
-//        },
-//       650: {
-//         slidesPerView: 3,
-//       },
-//       768: {
-//         slidesPerView: 4,
-//       },
-//       1024: {
-//         slidesPerView: 5,
-//       },
-//    },
-// });
+   stars.forEach((star,index)=>{
+      star.onclick = () =>{
+         for(let i=index; i>=0; i--){
+            stars[i].classList.add('checked');
+            
+         }
+         document.querySelector('.rating').value = index+1;
+      }
+   });
+
+   document.querySelector('.recieved-btn').onclick = () =>{
+      document.querySelector('.feedback').style.display = "none"
+   }
+   document.querySelector('.send-btn').onsubmit = () =>{
+      document.querySelector('.feedback').style.display = "none"
+   }
+
 
 var swiper = new Swiper(".products-slider", {
    loop:true,
