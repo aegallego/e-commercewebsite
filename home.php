@@ -7,6 +7,7 @@ var t=setTimeout("myFunction1()",500);
 <script>
 function myFunction1() {
   alert("Feedback Sent!");
+  window.location.href = "home.php";
 };
 </script>
 
@@ -23,18 +24,21 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
-
+// random occurence of feedback
 $occurance_rate = rand(10,200);
 
 if(isset($_POST['send-btn'])){
    $rating = $_POST['rating'];
+   $reason = $_POST['reason'];
+
 
    $select_users = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
    $select_users->execute([$user_id]);
    $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
 
-   $select_messages = $conn->prepare("INSERT INTO `feedback`(`user_id`, `user_email`, `rating`) VALUES (?,?,?)");
-   $select_messages->execute([$user_id,$fetch_users['email'],$rating]);
+   $select_messages = $conn->prepare("INSERT INTO `feedback`(`user_id`, `user_email`, `rating`, `reason`) VALUES (?,?,?,?)");
+   $select_messages->execute([$user_id,$fetch_users['email'],$rating,$reason]);
+
 
    echo "<script>timeMsg();</script>";
  }
@@ -80,7 +84,7 @@ include 'components/wishlist_cart.php';
         flex-direction: inherit;
         justify-content: center;
         align-items: center;
-        height: 80%;
+        height: 100%;
         width: 40%;
       }
       .feedback .container hr{
@@ -133,6 +137,11 @@ include 'components/wishlist_cart.php';
       .rating{
          visibility: hidden;
       }
+
+      .reason{
+         border: 1px solid black;
+         width: 50%
+      }
    </style>
 
 </head>
@@ -150,6 +159,8 @@ include 'components/wishlist_cart.php';
          <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
          <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
       </div>
+      <label for="reason">Reason:</label>
+      <textarea name="reason" id="reason" class="reason" cols="10" rows="30"></textarea>
       <div class="feedback-btn">
          <button type="submit" name="send-btn" class="send-btn">Send</button>
          <button  name="recieved-btn" class="recieved-btn">Remind Later</button>

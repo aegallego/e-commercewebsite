@@ -5,12 +5,6 @@ function timeMsg() {
 </script>
 
 <script>
-   function call_checkout() {
-      var t=setTimeout("paymongo_checkout",1000);
-   }
-</script>
-
-<script>
 function myFunction() {
   let text = "Order has been placed! Do you want to proceed on Order Page?";
       if (confirm(text) == true) {
@@ -150,11 +144,6 @@ function genrate_ref_number($numDigits) {
 
 ?>
 
-<script>
-   function paymongo_checkout(){
-      alert('hello');
-   }
-</script>
 
 <!DOCTYPE html>
 <html lang="en">
