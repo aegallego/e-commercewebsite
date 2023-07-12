@@ -48,20 +48,9 @@ if(isset($_POST['send'])){
 
    }
 
-  if($user_id !== ''){
-    $select_users = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
-    $select_users->execute([$user_id]);
-    $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
 
-      $select_messages = $conn->prepare("SELECT * FROM `messages` WHERE user_id = ?");
-      $select_messages->execute([$user_id]);
-      $fetch_messages = $select_messages->fetch(PDO::FETCH_ASSOC);
-  }
 
-  if(isset($_POST['recieved-btn'])){
-    $select_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
-    $select_messages->execute([$user_id]);
-  }
+
 ?>
 
 <!DOCTYPE html>
@@ -79,77 +68,27 @@ if(isset($_POST['send'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/contact-style.css">
 
-   <style>
-      .admin-res{
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.605);
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width: 100%;
-        z-index: 1001;
-      }
-      .admin-res .container{
-        background-color: white;
-        border-radius: 25px;
-        display: inherit;
-        flex-direction: inherit;
-        row-gap: 2rem;
-        height: 70%;
-        width: 50%;
-      }
-      .admin-res .container hr{
-        height: 2px;
-        width: 80%;
-        background-color: black;
-
-      }
-      .admin-res .container h3{
-        align-self: flex-start;
-        margin-left: 7rem;
-        font-weight: light;
-
-      }
-      .admin-res .container h1{
-        padding: 1rem 8rem;
-        overflow-y: auto;
-      }
-      .admin-res .container button{
-        padding: 1rem 3rem;
-        border-radius: 8px;
-        margin-top: 2rem;
-        cursor: pointer;
-        font-weight: bold;
-        background-color: #4b92ff;
-        color: white;
-      }
-      .admin-res .container button:hover{
-        background-color: #2e61ae;
-      }
-        
-   </style>
-
 </head>
 <body>
-
-<div class="admin-res">
-  <form method="POST" class="container">
-    <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/0856cf/admin-settings-male.png" alt="admin-settings-male"/>
-    <hr>   
-    <h3><?php echo $fetch_messages['dates'] ?> | Admin:</h3>
-    <h1><?php echo $fetch_messages['message_status'] ?></h1>
-    <button type="submit" name="recieved-btn" class="recieved-btn">Received!</button>
-  </form>
-</div>
-
+   
 <?php include 'components/user_header.php'; ?>
-<img src="img/shape.png" class="square" alt="" />
-<section class="contact">
-<h1 class="heading">contact us</h1>
+
+<!-- <section class="contact">
+
+   <form action="" method="post">
+      <h3>get in touch</h3>
+      <input type="text" name="name" placeholder="Enter your name" required maxlength="20" class="box">
+      <input type="email" name="email" placeholder="Enter your email" required maxlength="50" class="box">
+      <input type="tel" name="number" placeholder="Enter your number" required maxlength="11" class ="box">
+      <textarea name="msg" class="box" placeholder="Enter your message" cols="30" rows="10"></textarea>
+      <input type="submit" value="send message" name="send" class="btn">
+   </form>
+
+</section> -->
+
 <div class="container">
-<span class="big-circle"></span>
+      <span class="big-circle"></span>
+      <img src="img/shape.png" class="square" alt="" />
       <div class="form">
         <div class="contact-info">
           <h3 class="title">Let's get in touch</h3>
@@ -211,13 +150,14 @@ if(isset($_POST['send'])){
           <span class="circle two"></span>
 
           <form action="" method="POST">
-          <div class="input-container read">
-              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " />
+            <h3 class="title">Contact us</h3>
+            <div class="input-container">
+              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
               <label for=""></label>
               <span>Name</span>
             </div>
-            <div class="input-container read">
-              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> "/>
+            <div class="input-container">
+              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> " disabled/>
               <label for=""></label>
               <span>Email</span>
             </div>
@@ -246,19 +186,35 @@ if(isset($_POST['send'])){
         </div>
       </div>
     </div>
-
 <!-- FAQs -->
 <style>
+  .containeracc {
+  display: flex;
+  margin-top: -7%;
+  background-color:#1f5c9a;
+  justify-content: space-between;
+  }
+
+  .columnacc {
+    width: 40%;
+    margin-left: 5%;
+  }
+
+  .column{
+    margin-top: 12%;
+    width: 40%;
+    margin-right: 5%;
+  }
 .containerFluid {
-  width: 40%;
+  width: 30%;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: -5%;
 }
 
 .containerFluid h2 {
   color: #142D55;
   position: relative;
-  width: 24rem;
+  width: 50rem;
 }
 
 .containerFluid h2::after {
@@ -268,7 +224,11 @@ if(isset($_POST['send'])){
   right: 12px;
   width: 67px;
   height: 2px;
-  background-color: hotpink;
+  background-color: #6db5ff;
+}
+
+.faqs, .ans{
+color: #ffff;
 }
 
 .accordion {
@@ -282,6 +242,35 @@ if(isset($_POST['send'])){
   align-items: center;
 }
 
+.accordionr{
+  width: 100%;
+  padding: 0 5px;
+  border: 2px solid #6db5ff;
+  cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  margin: 10px 0;
+  margin-left: 130%;
+  align-items: center;
+}
+.accordionr .icon {
+  margin: 0 10px 0 0;
+  width: 30px;
+  height: 30px;
+  background: url(https://raw.githubusercontent.com/Tusar78/responsive-accordion/main/images/toggle-bg.png)
+    no-repeat 8px 7px #6db5ff;
+  border-radius: 50%;
+  float: left;
+  transition: all 0.5s ease-in;
+}
+
+.accordionr h5 {
+  font-size: 22px;
+  margin: 0;
+  padding: 3px 0 0 0;
+  font-weight: normal;
+  color: #1f5c9a;
+}
 .accordion .icon {
   margin: 0 10px 0 0;
   width: 30px;
@@ -298,7 +287,7 @@ if(isset($_POST['send'])){
   margin: 0;
   padding: 3px 0 0 0;
   font-weight: normal;
-  color: #1f5c9a;
+  color: #ffff;
 }
 
 .active {
@@ -321,73 +310,147 @@ if(isset($_POST['send'])){
   max-height: 0;
   transition: all 0.3s ease-in;
 }
+
 </style>
 
-    <div class="containerFluid">
-  <h2>Frequently Asked Questions(FAQs)</h2>
-  <div class="accordion">
-    <div class="icon"></div>
-    <h5>What is Lorem Ipsum?</h5>
-  </div>
-  <div class="panel">
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever
-      since the 1500s, when an unknown printer took a galley of type and
-      scrambled it to make a type specimen book. It has survived not only
-      five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged.
-    </p>
+<div class="containeracc">
+  <div class="columnacc">
+    <h2 class = "faqs">Frequently Asked Questions (FAQs)</h2>
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>How long does it take for the orders to be received?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+        The delivery time for orders may vary depending on various factors such
+        as location and shipping method chosen. Please allow for sufficient time 
+        for your order to be received.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>What is the process for ordering?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+        The process for ordering starts with signing up or logging into an account. 
+        Once logged in, you can select the desired cleaning supplies from our available 
+        products, add them to your cart, provide necessary information, and choose your 
+        preferred payment method.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>Who is eligible to order?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+        Eligibility to order is open to all Gemstar's partner companies and anyone who 
+        wishes to order our available cleaning supplies.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>How do I place my order?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+        To place your order, please sign up or log in to your account, select the cleaning 
+        supplies you need, add them to your cart, proceed to checkout, provide the required 
+        information, and select your preferred payment method.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>How can I track my order?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      You can track the status of your order by logging into your account on our website 
+      and accessing the order status section. There, you will find real-time updates on 
+      the progress and location of your shipment.
+      </p>
+    </div>
+
   </div>
 
-  <div class="accordion">
-    <div class="icon"></div>
-    <h5>Why do we use it?</h5>
-  </div>
-  <div class="panel">
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever
-      since the 1500s, when an unknown printer took a galley of type and
-      scrambled it to make a type specimen book. It has survived not only
-      five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged.
-    </p>
-  </div>
+  <div class="column">
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>How do I place my order?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+        To place your order, please sign up or log in to your account, select the cleaning 
+        supplies you need, add them to your cart, proceed to checkout, provide the required 
+        information, and select your preferred payment method.
+      </p>
+    </div>
+  
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>What is your return policy?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      Our return policy allows for returns and exchanges within a specified timeframe, typically
+      accompanied by certain conditions such as the item being unused and in its original packaging.
+      Please refer to our website or contact our customer service for detailed information
+      </p>
+    </div>
 
-  <div class="accordion">
-    <div class="icon"></div>
-    <h5>Where does it come from?</h5>
-  </div>
-  <div class="panel">
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever
-      since the 1500s, when an unknown printer took a galley of type and
-      scrambled it to make a type specimen book. It has survived not only
-      five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged.
-    </p>
-  </div>
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>How secure is my personal information inyour website</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      We prioritize the security of your personal information and employ various measures to protect it,
+      including encryption and secure protocols, to ensure the confidentiality and integrity of your data.
+      </p>
+    </div>
 
-  <div class="accordion">
-    <div class="icon"></div>
-    <h5>Why do we use it?</h5>
-  </div>
-  <div class="panel">
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever
-      since the 1500s, when an unknown printer took a galley of type and
-      scrambled it to make a type specimen book. It has survived not only
-      five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged.
-    </p>
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>What payment methods do you accept?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      Gemstar only accepts COD (Cash on Delivery) and GCash (E-wallet) as payment methods.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>Do you iffer international shipping?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      Gemstar currently caters to local shipping within the specified region. International 
+      shipping is not available at this time.
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="icon"></div>
+      <h5>What happens if the item I received is either broken or damaged?</h5>
+    </div>
+    <div class="panel">
+      <p class ="ans">
+      If the item you received is broken or damaged, please contact our customer service 
+      immediately and provide relevant details. We will assist you in resolving the issue,
+      which may involve replacement, refund, or other appropriate actions depending on the circumstances.
+      </p>
+    </div>
   </div>
 </div>
-
-
 <?php include 'components/footer.php'; ?>
+
+
 
 <script>
 // FAQs
@@ -405,26 +468,16 @@ for (i = 0; i < len; i++) {
     }
   });
 }
+</script>
+
 //FAQs
-</script>
-<script>
-  let response = "<?php echo $fetch_messages['message_status'] ?>";
-  
-  (response !== "") ? document.querySelector('.admin-res').style.display = "flex" : false
-
-  document.querySelector('.recieved-btn').onsumbit = () =>{
-    document.querySelector('.admin-res').style.display = "none"
-  }
-</script>
-
 <script src="js/script.js"></script>
 <script src ="js/contact.js"></script>
 <script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 </script>
-
 
 </body>
 </html>

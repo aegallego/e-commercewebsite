@@ -71,14 +71,8 @@ if(isset($_GET['delete'])){
 
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
   
-   
-   
-   
 
-
-   
 <style>
-
 .custom-container {
    width: 97vw ;
    margin-top: 2%;
@@ -93,79 +87,6 @@ if(isset($_GET['delete'])){
 }
 
 
-/* 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-.modal-body{
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-}
-.modal-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    color: var(--bs-modal-color);
-    pointer-events: auto;
-    background-color: var(--bs-modal-bg);
-    background-clip: padding-box;
-    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
-    border-radius: var(--bs-modal-border-radius);
-    outline: 0;
-}
-.modal-header {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--bs-modal-header-padding);
-    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
-    border-top-left-radius: var(--bs-modal-inner-border-radius);
-    border-top-right-radius: var(--bs-modal-inner-border-radius);
-}
-.modal.show .modal-dialog {
-    transform: none;
-}
-.modal.fade .modal-dialog {
-    transition: transform .3s ease-out;
-    transform: translate(0,-50px);
-}
-
-.modal-dialog {
-    max-width: var(--bs-modal-width);
-    margin-right: auto;
-    margin-left: auto;
-}
-.modal-dialog {
-    position: relative;
-    width: auto;
-    margin: var(--bs-modal-margin);
-    pointer-events: none;
-} 
-.modal {
-  z-index: 1050;
-}
-
-.modal-backdrop {
-  z-index: 1040;
-}
-*/
 .btn{
 display: flex;
 width: 100%; 
@@ -278,8 +199,13 @@ a.logo{
     background-color: #57e3ff!important;
     ;
 }
+.modal {
+  z-index: 1050; /* Adjust the value if needed */
+}
 
-
+.modal-backdrop {
+  z-index: 1040; /* Adjust the value if needed */
+}
 
 </style>
 </head>
