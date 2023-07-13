@@ -159,8 +159,11 @@ include 'components/wishlist_cart.php';
          <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
          <i class="fa fa-4x fa-star stars-feed" aria-hidden="true"></i>
       </div>
+      
       <label for="reason">Reason:</label>
+      <!-- text area for reason of feedback -->
       <textarea name="reason" id="reason" class="reason" cols="10" rows="30"></textarea>
+
       <div class="feedback-btn">
          <button type="submit" name="send-btn" class="send-btn">Send</button>
          <button  name="recieved-btn" class="recieved-btn">Remind Later</button>
