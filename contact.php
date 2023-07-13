@@ -48,9 +48,20 @@ if(isset($_POST['send'])){
 
    }
 
+  if($user_id !== ''){
+    $select_users = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+    $select_users->execute([$user_id]);
+    $fetch_users = $select_users->fetch(PDO::FETCH_ASSOC);
 
+      $select_messages = $conn->prepare("SELECT * FROM `messages` WHERE user_id = ?");
+      $select_messages->execute([$user_id]);
+      $fetch_messages = $select_messages->fetch(PDO::FETCH_ASSOC);
+  }
 
-
+  if(isset($_POST['recieved-btn'])){
+    $select_messages = $conn->prepare("DELETE FROM `messages` WHERE user_id = ?");
+    $select_messages->execute([$user_id]);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -68,27 +79,28 @@ if(isset($_POST['send'])){
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/contact-style.css">
 
+
+
+
 </head>
 <body>
-   
+
+<div class="admin-res">
+  <form method="POST" class="container">
+    <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/0856cf/admin-settings-male.png" alt="admin-settings-male"/>
+    <hr>   
+    <h3><?php echo $fetch_messages['dates'] ?> | Admin:</h3>
+    <h1><?php echo $fetch_messages['message_status'] ?></h1>
+    <button type="submit" name="recieved-btn" class="recieved-btn">Received!</button>
+  </form>
+</div>
+
 <?php include 'components/user_header.php'; ?>
-
-<!-- <section class="contact">
-
-   <form action="" method="post">
-      <h3>get in touch</h3>
-      <input type="text" name="name" placeholder="Enter your name" required maxlength="20" class="box">
-      <input type="email" name="email" placeholder="Enter your email" required maxlength="50" class="box">
-      <input type="tel" name="number" placeholder="Enter your number" required maxlength="11" class ="box">
-      <textarea name="msg" class="box" placeholder="Enter your message" cols="30" rows="10"></textarea>
-      <input type="submit" value="send message" name="send" class="btn">
-   </form>
-
-</section> -->
-
+<img src="img/shape.png" class="square" alt="" />
+<section class="contact">
+<h1 class="heading">contact us</h1>
 <div class="container">
-      <span class="big-circle"></span>
-      <img src="img/shape.png" class="square" alt="" />
+<span class="big-circle"></span>
       <div class="form">
         <div class="contact-info">
           <h3 class="title">Let's get in touch</h3>
@@ -150,14 +162,13 @@ if(isset($_POST['send'])){
           <span class="circle two"></span>
 
           <form action="" method="POST">
-            <h3 class="title">Contact us</h3>
-            <div class="input-container">
-              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " disabled />
+          <div class="input-container read">
+              <input type="text" name="name" class="input" required maxlength="20" value="<?=$fetch_users['name']?> " />
               <label for=""></label>
               <span>Name</span>
             </div>
-            <div class="input-container">
-              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> " disabled/>
+            <div class="input-container read">
+              <input type="email" name="email" class="input" required maxlength="50" value="<?=$fetch_users['email']?> "/>
               <label for=""></label>
               <span>Email</span>
             </div>
@@ -186,6 +197,59 @@ if(isset($_POST['send'])){
         </div>
       </div>
     </div>
+
+<!-- FAQs -->
+<style>
+      .admin-res{
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.605);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        z-index: 1001;
+      }
+      .admin-res .container{
+        background-color: white;
+        border-radius: 25px;
+        display: inherit;
+        flex-direction: inherit;
+        row-gap: 2rem;
+        height: 70%;
+        width: 50%;
+      }
+      .admin-res .container hr{
+        height: 2px;
+        width: 80%;
+        background-color: black;
+
+      }
+      .admin-res .container h3{
+        align-self: flex-start;
+        margin-left: 7rem;
+        font-weight: light;
+
+      }
+      .admin-res .container h1{
+        padding: 1rem 8rem;
+        overflow-y: auto;
+      }
+      .admin-res .container button{
+        padding: 1rem 3rem;
+        border-radius: 8px;
+        margin-top: 2rem;
+        cursor: pointer;
+        font-weight: bold;
+        background-color: #4b92ff;
+        color: white;
+      }
+      .admin-res .container button:hover{
+        background-color: #2e61ae;
+      }
+ 
+   </style>
 <!-- FAQs -->
 <style>
   .containeracc {
@@ -448,9 +512,8 @@ color: #ffff;
     </div>
   </div>
 </div>
+
 <?php include 'components/footer.php'; ?>
-
-
 
 <script>
 // FAQs
@@ -468,16 +531,26 @@ for (i = 0; i < len; i++) {
     }
   });
 }
+//FAQs
+</script>
+<script>
+  let response = "<?php echo $fetch_messages['message_status'] ?>";
+  
+  (response !== "") ? document.querySelector('.admin-res').style.display = "flex" : false
+
+  document.querySelector('.recieved-btn').onsumbit = () =>{
+    document.querySelector('.admin-res').style.display = "none"
+  }
 </script>
 
-//FAQs
 <script src="js/script.js"></script>
 <script src ="js/contact.js"></script>
 <script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
     }
 </script>
+
 
 </body>
 </html>
