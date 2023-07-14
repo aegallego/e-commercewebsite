@@ -53,7 +53,7 @@ include 'components/wishlist_cart.php';
       <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
       <div class="row">
          <div class="image-container">
-         <span class="stocks">Stocks: <span><?= $fetch_product['product_stock']; ?></span></span>
+         <span class="stocks">Stocks: <?= $fetch_product['product_stock']; ?></span>
          <div class="boxes">
             <div class="main-image">
                <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
