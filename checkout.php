@@ -161,6 +161,11 @@ function genrate_ref_number($numDigits) {
    <link rel="stylesheet" href="css/style.css">
 
 </head>
+<style>
+   .read{
+   pointer-events: none;
+ }
+</style>
 <body>
    
 <?php include 'components/user_header.php'; ?>
@@ -239,15 +244,15 @@ function genrate_ref_number($numDigits) {
       <div class="flex">
          <div class="inputBox">
             <span>Receipient's Name:</span>
-            <input type="text" name="name" placeholder="e.g. Juan Dela Cruz" class="box" maxlength="20" value ="<?= $fetch_address['name']; ?>" required>
+            <input type="text" name="name" placeholder="e.g. Juan Dela Cruz" class="box read" maxlength="20" value ="<?= $fetch_address['name']; ?>" required>
          </div>
          <div class="inputBox">
             <span>Mobile Number:</span>
-            <input type="number" name="number" placeholder="e.g. 09XXXXXXXXX" class="box" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" value ="<?= $fetch_address['number']; ?>" required>
+            <input type="number" name="number" placeholder="e.g. 09XXXXXXXXX" class="box read" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" value ="<?= $fetch_address['number']; ?>" required>
          </div>
          <div class="inputBox">
             <span>Email:</span>
-            <input type="email" name="email" placeholder="@gmail.com" class="box" maxlength="50" value ="<?= $fetch_address['email']; ?>" required>
+            <input type="email" name="email" placeholder="@gmail.com" class="box read" maxlength="50" value ="<?= $fetch_address['email']; ?>" required>
          </div>
          <div class="inputBox">
             <span>Payment Method:</span>

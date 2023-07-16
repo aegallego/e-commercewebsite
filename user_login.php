@@ -110,7 +110,7 @@ if(isset($_POST['submit'])){
         <div class="overlay">
             <div class="card-4">
                <div class="text-1">One Stop Shop for Cleaning Needs</div>
-               <button type="submit" id="loginBtn" class="btn" style="width: 50%;">Order Now</button><br>       
+               <a href="shop.php" class="btn" style="width: 50%;"><button type="submit" id="loginBtn" style="background: transparent; color: white;">Order Now</button><br></a>       
 </div></div></div></div>                
 </section>
 

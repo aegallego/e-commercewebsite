@@ -229,6 +229,7 @@ a.logo{
          <thead>
             <tr>
                <th>Placed On</th>
+               <th>Order ID</th>
                <th>ID</th>
                <th>Name</th>
                <th>Email</th>
@@ -251,6 +252,7 @@ a.logo{
                   while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
                      echo '<tr>';
                      echo '<td>' . $fetch_orders['placed_on'] . '</td>';
+                     echo '<td>' . $fetch_orders['id'] . '</td>';
                      echo '<td>' . $fetch_orders['user_id'] . '</td>';
                      echo '<td>' . $fetch_orders ['name'] .'</td>';
                      echo '<td>' . $fetch_orders ['email'] .'</td>';
@@ -265,7 +267,7 @@ a.logo{
                      echo '<td>
    <div class="btn-group" role="group">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal' . $fetch_orders['id'] . '">Edit</button>
-      <a href="placed_orders.php?delete=' . $fetch_orders['id'] . '" class="btn btn-danger btn-delete" onclick="return confirm(\'Delete this order?\');">Delete</a>
+      <a href="placed_orders.php?delete='.$fetch_orders['id'].'" class="btn btn-danger btn-delete" onclick="return confirm(\'Delete this order?\');">Delete</a>
    </div>
 </td>';
                      echo '</tr>';

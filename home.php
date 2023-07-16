@@ -1,17 +1,3 @@
-<script>
-function timeMsg() {
-var t=setTimeout("myFunction1()",500);
-}
-</script>
-
-<script>
-function myFunction1() {
-  alert("Feedback Sent!");
-  window.location.href = "home.php";
-};
-</script>
-
-
 <?php
 
 include 'components/connect.php';
@@ -25,7 +11,7 @@ if(isset($_SESSION['user_id'])){
 };
 
 // random occurence of feedback
-$occurance_rate = rand(10,200);
+$occurance_rate = rand(10,50);
 
 if(isset($_POST['send-btn'])){
    $rating = $_POST['rating'];
@@ -63,6 +49,19 @@ include 'components/wishlist_cart.php';
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+
+   <script>
+   function timeMsg() {
+   var t=setTimeout("myFunction1()",500);
+   }
+   </script>
+
+   <script>
+   function myFunction1() {
+   alert("Feedback Sent!");
+   window.location.href = "home.php";
+   };
+   </script>
 
    <style>
       .feedback{

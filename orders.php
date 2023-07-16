@@ -120,6 +120,10 @@ if(isset($_SESSION['user_id'])){
    <table class="table1" style="width: 100%;
   border-collapse: collapse;">
       <tr>
+         <td><p>order id </p></td>
+         <td><span> <?= $fetch_orders['id']; ?></span></td>
+      </tr>
+      <tr>
          <td><p>placed on </p></td>
          <td><span> <?= $fetch_orders['placed_on']; ?></span></td>
       </tr>
@@ -169,6 +173,7 @@ if(isset($_SESSION['user_id'])){
          <td><span> <?= $fetch_orders['courier_type']; ?></span></td>
       </tr>
    </table>
+   <?php echo '<a href="orders.php?delete='.$fetch_orders['id'].'" class="btn btn-danger btn-delete" onclick="return confirm(\'Delete this order?\');">Delete</a>' ?>
    </div>
    </div>
    <?php

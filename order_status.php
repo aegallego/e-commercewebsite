@@ -251,6 +251,10 @@ include 'components/wishlist_cart.php';
          <td><span> <?= $fetch_orders['id']; ?></span></td>
       </tr>
       <tr>
+         <td><p>placed on </p></td>
+         <td><span> <?= $fetch_orders['placed_on']; ?></span></td>
+      </tr>
+      <tr>
          <td><p>name </p></td>
          <td><span> <?= $fetch_orders['name'];?></span></td>
       </tr>

@@ -1493,6 +1493,10 @@ background: var(--lightblue);
    font-size: 2rem;
 }
 
+.read{
+   pointer-events: none;
+ }
+
 .checkout-orders input.btn{
    font-size: 2rem;
    background-color: var(--lightblue);
