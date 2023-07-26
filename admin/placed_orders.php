@@ -48,8 +48,14 @@ if(isset($_GET['delete'])){
    $delete_order->execute([$delete_id]);
    header('location:placed_orders.php');
 }
-
+if (isset($_GET['exportToCsvBtn'])) {
+   $selectedYear = $_GET['yearRange'];
+   // Redirect the user to the export_completed_orders.php script with the selected year
+   header('Location: export_completed_orders.php?year=' . $selectedYear);
+   exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +76,7 @@ if(isset($_GET['delete'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">   
 
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>  <!-- sorting arrows-->
-  
+
 
 <style>
 .custom-container {
@@ -210,8 +216,8 @@ a.logo{
 </style>
 </head>
 <body>
-<?php include '../components/admin_header.php'; ?>
 
+<?php include '../components/admin_header.php'; ?>
 <section class="orders">
 
 
@@ -222,6 +228,22 @@ a.logo{
       <input type="text" id="datatableSearch" placeholder="Search...">
       <button type="button" id="datatableSearchButton"><i class="fas fa-search"></i></button>
    </form>
+
+</div>
+<div class="year-selection">
+    <form method="get">
+        <label for="yearRange">Select Year:</label>
+        <select id="yearRange" name="yearRange">
+            <?php
+            $minYear = 2018; // Define the minimum year in your data
+            $maxYear = 2023; // Define the maximum year in your data
+            for ($year = $maxYear; $year >= $minYear; $year--) {
+                echo '<option value="' . $year . '">' . $year . '</option>';
+            }
+            ?>
+        </select>
+        <button type="submit" name="exportToCsvBtn"><i class="fas fa-print"></i></button>
+    </form>
 </div>
 
    <div class="custom-container">
@@ -334,11 +356,22 @@ if ($select_orders->rowCount() > 0) {
 
 
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="../js/admin_script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.17.0/xlsx-populate.min.js"></script> <!-- for excel-->
 
+
+<script>
+function exportOrdersToCSV() {
+    // Get the selected year range from the dropdown
+    var yearRange = document.getElementById('yearRange').value;
+
+    // Redirect the user to the export_completed_orders.php script with the selected year range
+    window.location.href = 'export_completed_orders.php?year=' + yearRange;
+}
+</script>
+<!-- end of excel -->
 <script>
 $(document).ready(function() {
    var table = $('#ordersTable').DataTable({

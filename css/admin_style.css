@@ -147,6 +147,100 @@ section{
    text-align: center;
    text-transform: uppercase;
 }
+/* .expf, .exp{
+   display: flex;
+   width: 10%;
+   margin-top: 1.2rem;
+   margin-left: 50%;
+   border-radius: .5rem;
+   padding:1rem 3rem;
+   font-size: 1.4rem;
+   color:var(--white);
+   cursor: pointer;
+   text-align: center;
+   justify-content: center;
+   align-content: flex-end;
+   background-color: #0856cf;
+} */
+.exp{
+   display: flex;
+   justify-content: right;
+   padding: 9px 18px;
+   margin-top: 1rem;
+   font-size: 16px;
+   border: none;
+   background-color: #142d55;
+   color: #fff;
+   cursor: pointer;
+   border-radius: 4px;
+   transition: background-color 0.3s ease;
+}
+.expf{
+   padding: 9px 18px;
+   margin-top: .8rem;
+   font-size: 16px;
+   border: none;
+   background-color: #142d55;
+   color: #fff;
+   cursor: pointer;
+   border-radius: 4px;
+   transition: background-color 0.3s ease;
+ }
+ 
+ .expf:hover, .exp:hover {
+   background-color: #2980b9;
+ }
+ 
+ .expf:focus, exp:focus {
+   outline: none;
+ }
+ 
+ /* Image button styles */
+ #exportToCsvBtn {
+   background-image: url('https://icons8.com/icon/12785/print');
+   background-size: cover;
+   background-position: center;
+   justify-content: right;
+   width: 50px; /* Adjust the width as needed */
+   height: 50px; /* Adjust the height as needed */
+   padding: 0; /* Remove default padding to make the button content fit the image */
+ }
+ 
+ .filter-container {
+   display: flex;
+   align-items: center;
+   justify-content: left;
+   gap: 20px;
+   padding: 20px;
+   border-radius: 8px;
+ }
+ 
+ label {
+   font-weight: bold;
+ }
+ 
+ select {
+   padding: 8px 12px;
+   font-size: 16px;
+   margin-top: .5rem;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   background-color: #fff;
+   color: #333;
+ }
+ 
+ /* Optional: Style the select dropdown arrow (not supported in all browsers) */
+ select::-ms-expand {
+   display: none; /* Hide the default arrow on IE/Edge */
+ }
+ select::-webkit-scrollbar {
+   width: 12px; /* Optional: Add a custom scrollbar */
+ }
+ select::-webkit-scrollbar-thumb {
+   background-color: #888; /* Optional: Style the scrollbar thumb */
+   border-radius: 6px;
+ }
+ 
 
 .btn,
 .btns,
