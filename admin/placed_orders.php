@@ -213,6 +213,40 @@ a.logo{
   z-index: 1040; /* Adjust the value if needed */
 }
 
+/* -- */
+
+.fab-container{
+position:fixed;
+bottom:50px;
+right:50px;
+cursor:pointer;
+z-index: 50;
+}
+
+.iconbutton{
+width:100px;
+height:100px;
+border-radius: 100%;
+background: #FF4F79;
+border:.2rem solid #B7E3FF; 
+box-shadow: 8px 8px 7px rgba(0,0,0,0.7);
+}
+
+.button{
+width:60px;
+height:60px;
+background:#0856cf;
+}
+
+.iconbutton i{
+display:flex;
+align-items:center;
+justify-content:center;
+height: 100%;
+color:white;
+font-size: 2em;
+}
+
 </style>
 </head>
 <body>
@@ -242,7 +276,9 @@ a.logo{
             }
             ?>
         </select>
-        <button type="submit" name="exportToCsvBtn"><i class="fas fa-print"></i></button>
+        <div class="fab-container">
+        <button type="submit" name="exportToCsvBtn" class="button iconbutton"><i class="fas fa-print"></i></button>
+        </div>
     </form>
 </div>
 
@@ -385,8 +421,8 @@ $(document).ready(function() {
    table.search(searchValue).draw();
 });
 
-       // Add ng filter dropdown sa header
-       var paymentStatusColumn = table.column(9);
+   // Add ng filter dropdown sa header
+   var paymentStatusColumn = table.column(9);
     var paymentStatusData = paymentStatusColumn.data().unique();
     var paymentStatusFilter = $('<select class="filter-dropdown"><option value="">All</option></select>');
 

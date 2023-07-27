@@ -217,7 +217,7 @@ if (isset($_GET['year']) && isset($_GET['month'])) {
             <div class="box">
                <?php
                   $total_pendings = 0;
-                  $select_pendings = $conn->prepare("SELECT * FROM `orders` WHERE order_tracking != 'Completed'");
+                  $select_pendings = $conn->prepare("SELECT * FROM `orders` WHERE payment_status != 'Completed'");
                   $select_pendings->execute([]);
                   if($select_pendings->rowCount() > 0){
                      while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
@@ -227,12 +227,12 @@ if (isset($_GET['year']) && isset($_GET['month'])) {
                   ?>
                <h3><span>₱ </span><?= number_format($total_pendings,2); ?><span> </span></h3>
                <p>Total Pending Payments</p>
-               <a href="placed_orders.php?method" class="btn">see orders</a>
+               <a href="placed_orders.php?method=Pending" class="btn">see orders</a>
             </div>
             <div class="box">
                <?php
                   $total_completes = 0;
-                  $select_completes = $conn->prepare("SELECT * FROM `orders` WHERE order_tracking = ?");
+                  $select_completes = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
                   $select_completes->execute(['Completed']);
                   if($select_completes->rowCount() > 0){
                      while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
