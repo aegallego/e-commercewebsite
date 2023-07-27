@@ -247,6 +247,20 @@ color:white;
 font-size: 2em;
 }
 
+@media (max-width:450px){
+
+.fab-container{
+bottom:20px;
+right:20px;
+}
+
+.fab-container button {
+width: 30px;
+height: 30px; 
+font-size: .5em;
+}
+}
+
 </style>
 </head>
 <body>
